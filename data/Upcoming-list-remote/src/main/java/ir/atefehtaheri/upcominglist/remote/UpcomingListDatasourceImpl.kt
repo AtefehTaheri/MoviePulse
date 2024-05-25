@@ -3,14 +3,13 @@ package ir.atefehtaheri.upcominglist.remote
 import dagger.Module
 import ir.atefehtaheri.commen.models.ResultStatus
 import ir.atefehtaheri.network.NetworkResponse
-import ir.atefehtaheri.upcominglist.remote.UpcomingListDatasource
 import ir.atefehtaheri.upcominglist.remote.api.UpcomingListApi
 import ir.atefehtaheri.upcominglist.remote.models.UpcomingListDto
 import javax.inject.Inject
 
 class UpcomingListDatasourceImpl @Inject constructor(
     private val upcomingListApi : UpcomingListApi
-): UpcomingListDatasource {
+    ): UpcomingListDatasource {
     override suspend fun getUpcomingList(): ResultStatus<UpcomingListDto> {
        return when(val result =upcomingListApi.getUpcomingList()){
            is NetworkResponse.ApiError -> ResultStatus.Failure(result.body.message)
