@@ -10,7 +10,6 @@ data class UpcomingListDataModel(
 
 data class UpcomingMovieDataModel(
     val backdrop_path: String?,
-//    val genre_ids: List<Int>,
     val id: Int,
     val original_title: String,
     val overview: String,
@@ -32,7 +31,6 @@ fun UpcomingListDto.asUpcomingListDataModel(): UpcomingListDataModel {
 fun Movie.asUpcomingMovieDataModel(): UpcomingMovieDataModel {
     return UpcomingMovieDataModel(
         backdrop_path = backdrop_path,
-//        genre_ids = genre_ids,
         id = id,
         original_title = original_title,
         overview = overview,

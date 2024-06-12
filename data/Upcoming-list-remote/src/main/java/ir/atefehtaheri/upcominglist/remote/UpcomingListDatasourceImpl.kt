@@ -14,7 +14,7 @@ class UpcomingListDatasourceImpl @Inject constructor(
     private val movieDatabase: MovieDatabase,
 
     ): UpcomingListDatasource {
-    override suspend fun getUpcomingList(): ResultStatus<UpcomingListDto> {
+    override suspend fun getUpcomingPager(): ResultStatus<UpcomingListDto> {
        return when(val result =upcomingListApi.getUpcomingList()){
            is NetworkResponse.ApiError -> ResultStatus.Failure(result.body.message)
            is NetworkResponse.NetworkError -> ResultStatus.Failure(result.error.message ?: "NetworkError")

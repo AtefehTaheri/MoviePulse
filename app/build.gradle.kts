@@ -1,12 +1,11 @@
-import java.io.FileInputStream
-import java.util.Properties
-
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+
     kotlin("kapt")
     alias(libs.plugins.hilt)
+//    id ("kotlin-kapt")
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -73,8 +72,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
-
     implementation(libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
+
+    api(project(":navigation"))
+    implementation(libs.navigation)
+
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+
 }

@@ -10,7 +10,7 @@ interface UpcomingListRepository {
     companion object {
         const val NETWORK_PAGE_SIZE = 10
     }
-    suspend fun getUpcomingList(): ResultStatus<UpcomingListDataModel>
+    suspend fun getUpcomingPager(): ResultStatus<UpcomingListDataModel>
 
     fun getUpcomingMovies(): Flow<PagingData<UpcomingMovieDataModel>>
 

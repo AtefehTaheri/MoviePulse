@@ -21,8 +21,8 @@ class UpcomingListRepositoryImpl @Inject constructor(
     private val movieDatabase: MovieDatabase,
 
     ) : UpcomingListRepository {
-    override suspend fun getUpcomingList(): ResultStatus<UpcomingListDataModel> {
-        return when (val result = upcomingListDatasource.getUpcomingList()) {
+    override suspend fun getUpcomingPager(): ResultStatus<UpcomingListDataModel> {
+        return when (val result = upcomingListDatasource.getUpcomingPager()) {
             is ResultStatus.Failure -> ResultStatus.Failure(result.exception_message)
             is ResultStatus.Success -> ResultStatus.Success(result.data?.asUpcomingListDataModel())
         }

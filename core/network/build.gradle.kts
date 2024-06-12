@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.hilt)
+//    id ("kotlin-kapt")
+//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -12,9 +14,6 @@ android {
     compileSdk = 34
 
     defaultConfig {
-
-
-
 
         minSdk = 30
 
@@ -49,15 +48,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-
-
-
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logger)
 
-
     implementation(libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    kapt(libs.hilt.compiler)
 }

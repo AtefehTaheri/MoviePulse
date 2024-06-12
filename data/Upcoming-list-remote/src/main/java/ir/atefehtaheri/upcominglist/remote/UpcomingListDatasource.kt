@@ -6,7 +6,7 @@ import ir.atefehtaheri.upcominglist.remote.paging.UpcomingRemoteMediator
 
 interface UpcomingListDatasource {
 
-    suspend fun getUpcomingList(): ResultStatus<UpcomingListDto>
+    suspend fun getUpcomingPager(): ResultStatus<UpcomingListDto>
 
     fun getUpcomingRemoteMediator(): UpcomingRemoteMediator
 

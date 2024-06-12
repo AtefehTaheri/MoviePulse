@@ -18,6 +18,9 @@ ksp = "1.8.20-1.0.11"
 kapt = "1.9.0"
 androidx-navigation = "2.7.6"
 jetbrainsKotlinJvm = "1.9.0"
+room_version = "2.6.1"
+paging_version = "3.3.0"
+coil = "2.6.0"
 
 
 [libraries]
@@ -51,6 +54,25 @@ hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidx-hilt" }
 navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
+
+
+
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room_version" }
+
+
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging_version" }
+paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging_version" }
+paging-rxjava2 = { group = "androidx.paging", name = "paging-rxjava2", version.ref = "paging_version" }
+paging-rxjava3 = { group = "androidx.paging", name = "paging-rxjava3", version.ref = "paging_version" }
+paging-guava = { group = "androidx.paging", name = "paging-guava", version.ref = "paging_version" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging_version" }
+
+coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+
 
 
 

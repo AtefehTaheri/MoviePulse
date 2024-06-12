@@ -9,10 +9,6 @@ import ir.atefehtaheri.upcominglist.remote.api.UpcomingListApi
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
-//
-//@Qualifier
-//@Retention(AnnotationRetention.BINARY)
-//annotation class CurrentWeather
 @Module
 @InstallIn(SingletonComponent::class)
 object UpcomingListApiModule {
