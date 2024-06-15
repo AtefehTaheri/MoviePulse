@@ -1,4 +1,4 @@
-package ir.atefehtaheri.upcominglist.remote.paging
+package ir.atefehtaheri.nowplaying.remote.paging
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
@@ -7,25 +7,25 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import ir.atefehtaheri.database.MovieDatabase
+import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
 import ir.atefehtaheri.database.entities.RemoteKey
-import ir.atefehtaheri.database.entities.UpcomingMovieEntity
 import ir.atefehtaheri.network.NetworkResponse
-import ir.atefehtaheri.upcominglist.remote.api.UpcomingListApi
-import ir.atefehtaheri.upcominglist.remote.models.asUpcomingMovieEntity
+import ir.atefehtaheri.nowplaying.remote.api.NowPlayingApi
+import ir.atefehtaheri.nowplaying.remote.models.asNowPlayingMovieEntity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class UpcomingRemoteMediator @Inject constructor(
-    private val upcomingListApi: UpcomingListApi,
+class NowPlayingRemoteMediator @Inject constructor(
+    private val nowPlayingApi: NowPlayingApi,
     private val movieDatabase: MovieDatabase
-) : RemoteMediator<Int, UpcomingMovieEntity>() {
+) : RemoteMediator<Int, NowPlayingMovieEntity>() {
 
     private val remoteKeyDao = movieDatabase.remoteKeyDao
-    private val movieDao = movieDatabase.upcomingMovieDao
+    private val nowPlayingDao = movieDatabase.nowPlayingMovieDao
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, UpcomingMovieEntity>
+        state: PagingState<Int, NowPlayingMovieEntity>
     ): MediatorResult {
 
 
@@ -41,7 +41,7 @@ class UpcomingRemoteMediator @Inject constructor(
 
                 LoadType.APPEND -> {
                     val remoteKey = movieDatabase.withTransaction {
-                        remoteKeyDao.getKeyByMovie("upcoming_movie")
+                        remoteKeyDao.getKeyByMovie("nowplaying_movie")
                     } ?: return MediatorResult.Success(true)
 
 
@@ -49,7 +49,7 @@ class UpcomingRemoteMediator @Inject constructor(
                 }
             }
             Log.d("Paging",page.toString())
-            val networkResponse = upcomingListApi.getUpcomingList(page = page)
+            val networkResponse = nowPlayingApi.getNowPlaying(page = page)
 
             when (networkResponse) {
                 is NetworkResponse.ApiError -> MediatorResult.Error(Throwable(networkResponse.body.message))
@@ -59,10 +59,10 @@ class UpcomingRemoteMediator @Inject constructor(
 
                     movieDatabase.withTransaction {
                         if(loadType == LoadType.REFRESH) {
-                            movieDao.clearAllUpcoming()
+                            nowPlayingDao.clearAllNowPlayingMovie()
                         }
                         val data =
-                            networkResponse.body?.results?.map { it.asUpcomingMovieEntity() }
+                            networkResponse.body?.results?.map { it.asNowPlayingMovieEntity() }
                                 ?: emptyList()
 
                         val nextPage = if(networkResponse.body?.results!!.isEmpty()) {
@@ -73,11 +73,11 @@ class UpcomingRemoteMediator @Inject constructor(
 
                         remoteKeyDao.insertKey(
                             RemoteKey(
-                            id = "upcoming_movie",
+                            id = "nowplaying_movie",
                             next_page = nextPage,
                         )
                         )
-                        movieDao.upsertUpcomingAll(data)
+                        nowPlayingDao.upsertAllNowPlayingMovie(data)
                     }
                     MediatorResult.Success(
                         endOfPaginationReached = networkResponse.body?.results!!.isEmpty()

@@ -1,0 +1,54 @@
+package ir.atefehtaheri.nowplaying.repository.models
+
+import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
+import ir.atefehtaheri.database.entities.UpcomingMovieEntity
+import ir.atefehtaheri.nowplaying.remote.models.Movie
+import ir.atefehtaheri.nowplaying.remote.models.NowPlayingDto
+
+data class NowPlayingListDataModel(
+    val nowplaying: List<NowPlayingDataModel>? = null,
+)
+
+data class NowPlayingDataModel(
+    val backdrop_path: String?,
+    val id: Int,
+    val original_title: String,
+    val overview: String,
+    val poster_path: String?,
+    val release_date: String,
+    val vote_average: Double
+)
+
+
+fun NowPlayingDto.asNowPlayingListDataModel(): NowPlayingListDataModel {
+    return NowPlayingListDataModel(
+        nowplaying = this.results.map {
+            it.asNowPlayingDataModel()
+        }
+    )
+
+}
+
+fun Movie.asNowPlayingDataModel(): NowPlayingDataModel {
+    return NowPlayingDataModel(
+        backdrop_path = backdrop_path,
+        id = id,
+        original_title = original_title,
+        overview = overview,
+        poster_path = poster_path,
+        release_date = release_date,
+        vote_average = vote_average
+    )
+}
+
+fun NowPlayingMovieEntity.asNowPlayingDataModel(): NowPlayingDataModel{
+    return NowPlayingDataModel(
+        backdrop_path =backdrop_path,
+        id =id,
+        original_title =original_title,
+        overview =overview,
+        poster_path =poster_path,
+        release_date =release_date,
+        vote_average =vote_average
+    )
+}

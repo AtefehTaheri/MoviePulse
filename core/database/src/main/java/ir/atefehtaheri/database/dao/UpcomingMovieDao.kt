@@ -7,13 +7,13 @@ import androidx.room.Upsert
 import ir.atefehtaheri.database.entities.UpcomingMovieEntity
 
 @Dao
-interface MovieDao {
+interface UpcomingMovieDao {
 
     @Upsert
     fun upsertUpcomingAll(upcoming:List<UpcomingMovieEntity>)
-    @Query("SELECT * FROM upcoming")
+    @Query("SELECT * FROM Upcoming")
     fun pagingSourceUpcoming():PagingSource<Int, UpcomingMovieEntity>
 
-    @Query("DELETE FROM upcoming")
+    @Query("DELETE FROM Upcoming")
     fun clearAllUpcoming()
 }

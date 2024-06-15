@@ -4,8 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "Upcoming")
-data class UpcomingMovieEntity(
+@Entity(tableName = "NowPlayingMovie")
+data class NowPlayingMovieEntity(
     @PrimaryKey
     val id: Int,
     val backdrop_path: String?,

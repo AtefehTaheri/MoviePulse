@@ -36,7 +36,7 @@ class UpcomingListRepositoryImpl @Inject constructor(
                 enablePlaceholders = true,
             ),
             remoteMediator = upcomingListDatasource.getUpcomingRemoteMediator() ,
-            pagingSourceFactory = { movieDatabase.movieDao.pagingSourceUpcoming() }
+            pagingSourceFactory = { movieDatabase.upcomingMovieDao.pagingSourceUpcoming() }
         ).flow.map{
             it.map{
                 it.asUpcomingMovieDataModel()
