@@ -19,14 +19,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 
 @Composable
-fun NowPlayingList(
+fun TopRatedMovieList(
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
 
 
-    val state by homeScreenViewModel.nowplayingMovie.collectAsState()
-    state.nowPlayingListDataModel.nowplaying?.let { list->
+    val state by homeScreenViewModel.topRatedMovie.collectAsState()
+    state.topRatedMovieListDataModel.topratedmovielist?.let { list->
 
         Column(
             modifier = Modifier

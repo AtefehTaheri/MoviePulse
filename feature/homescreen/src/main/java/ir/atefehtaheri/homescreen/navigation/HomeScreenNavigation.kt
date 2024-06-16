@@ -9,12 +9,21 @@ import ir.atefehtaheri.homescreen.HomeScreen
 const val HomeScreenRoute = "homescreen_route"
 
 
-fun NavController.navigateTohomeScreen(navOptions: NavOptions? = null) {
+fun NavController.navigateToHomeScreen(navOptions: NavOptions? = null) {
     this.navigate(HomeScreenRoute, navOptions)
 }
 
-fun NavGraphBuilder.homeScreenDestination(onClick: (NavOptions?) -> Unit) {
+fun NavGraphBuilder.homeScreenDestination(
+    navToUpcoming :  (NavOptions?) -> Unit,
+    navToNowPlaying :  (NavOptions?) -> Unit,
+    navToTopRated :  (NavOptions?) -> Unit,
+   ) {
+
     composable(route = HomeScreenRoute) {
-        HomeScreen (onClick)
+        HomeScreen (
+            navToUpcoming,
+            navToNowPlaying ,
+            navToTopRated
+        )
     }
 }

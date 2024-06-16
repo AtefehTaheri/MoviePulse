@@ -4,5 +4,7 @@ import ir.atefehtaheri.nowplaying.repository.models.NowPlayingListDataModel
 
 data class NowPlayingPagerState(
     val nowPlayingListDataModel: NowPlayingListDataModel,
-    val error:String?=null
+    val error:String?=null,
+    val loading:Boolean=true
+
 )

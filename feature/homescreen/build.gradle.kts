@@ -67,6 +67,9 @@ dependencies {
 
     api(project(":data:upcoming-list-repository"))
     api(project(":data:now-playing-repository"))
+    api(project(":data:tvshow-airing-repository"))
+    api(project(":data:toprated-movie-repository"))
+    api(project(":data:toprated-tvshow-repository"))
 
     implementation(libs.hilt.navigation.compose)
 

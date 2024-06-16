@@ -19,14 +19,14 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 
 @Composable
-fun NowPlayingList(
+fun TvAiringList(
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
 
 
-    val state by homeScreenViewModel.nowplayingMovie.collectAsState()
-    state.nowPlayingListDataModel.nowplaying?.let { list->
+    val state by homeScreenViewModel.tvShowAiring.collectAsState()
+    state.tvAiringListDataModel.airinglist?.let { list->
 
         Column(
             modifier = Modifier
@@ -36,14 +36,14 @@ fun NowPlayingList(
             Text(
                 modifier = Modifier
                     .padding( horizontal = 20.dp , vertical = 10.dp),
-                text = "Movies",
+                text = "Tv Shows",
                 style = MaterialTheme.typography.titleSmall,
                 color = MaterialTheme.colorScheme.onPrimary,
             )
 
             LazyRow (horizontalArrangement =Arrangement.spacedBy(10.dp)){
                 items(list){
-                    PagerItem(it.title,it.poster_path)
+                    PagerItem(it.name,it.poster_path)
                 }
             }
         }
