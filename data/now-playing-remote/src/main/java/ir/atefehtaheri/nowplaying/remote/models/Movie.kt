@@ -25,7 +25,7 @@ fun Movie.asNowPlayingMovieEntity(): NowPlayingMovieEntity {
 
         id= id,
         backdrop_path=backdrop_path ,
-        original_title= original_title,
+        title= title,
         overview=overview ,
         poster_path=poster_path ,
         release_date= release_date,

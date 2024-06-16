@@ -82,7 +82,7 @@ fun UpcomingItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = UpcomingMovie.original_title,
+                    text = UpcomingMovie.title,
                     style = MaterialTheme.typography.titleMedium,
                     color = Color.Black,
                     modifier = Modifier.fillMaxWidth()

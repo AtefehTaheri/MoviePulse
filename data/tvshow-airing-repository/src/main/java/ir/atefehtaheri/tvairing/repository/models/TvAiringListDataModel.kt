@@ -11,7 +11,7 @@ data class TvAiringListDataModel(
 data class TvAiringMovieDataModel(
     val backdrop_path: String?,
     val id: Int,
-    val original_title: String,
+    val name: String,
     val overview: String,
     val poster_path: String?,
     val vote_average: Double
@@ -31,7 +31,7 @@ fun Movie.asTvAiringMovieDataModel(): TvAiringMovieDataModel {
     return TvAiringMovieDataModel(
         backdrop_path = backdrop_path,
         id = id,
-        original_title = original_name,
+        name = name,
         overview = overview,
         poster_path = poster_path,
         vote_average = vote_average

@@ -12,7 +12,7 @@ data class NowPlayingListDataModel(
 data class NowPlayingDataModel(
     val backdrop_path: String?,
     val id: Int,
-    val original_title: String,
+    val title: String,
     val overview: String,
     val poster_path: String?,
     val release_date: String,
@@ -33,7 +33,7 @@ fun Movie.asNowPlayingDataModel(): NowPlayingDataModel {
     return NowPlayingDataModel(
         backdrop_path = backdrop_path,
         id = id,
-        original_title = original_title,
+        title = title,
         overview = overview,
         poster_path = poster_path,
         release_date = release_date,
@@ -45,7 +45,7 @@ fun NowPlayingMovieEntity.asNowPlayingDataModel(): NowPlayingDataModel{
     return NowPlayingDataModel(
         backdrop_path =backdrop_path,
         id =id,
-        original_title =original_title,
+        title =title,
         overview =overview,
         poster_path =poster_path,
         release_date =release_date,

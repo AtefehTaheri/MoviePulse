@@ -11,7 +11,7 @@ data class UpcomingListDataModel(
 data class UpcomingMovieDataModel(
     val backdrop_path: String?,
     val id: Int,
-    val original_title: String,
+    val title: String,
     val overview: String,
     val poster_path: String?,
     val release_date: String,
@@ -32,7 +32,7 @@ fun Movie.asUpcomingMovieDataModel(): UpcomingMovieDataModel {
     return UpcomingMovieDataModel(
         backdrop_path = backdrop_path,
         id = id,
-        original_title = original_title,
+        title = title,
         overview = overview,
         poster_path = poster_path,
         release_date = release_date,
@@ -44,7 +44,7 @@ fun UpcomingMovieEntity.asUpcomingMovieDataModel(): UpcomingMovieDataModel{
     return UpcomingMovieDataModel(
         backdrop_path =backdrop_path,
         id =id,
-        original_title =original_title,
+        title =title,
         overview =overview,
         poster_path =poster_path,
         release_date =release_date,
