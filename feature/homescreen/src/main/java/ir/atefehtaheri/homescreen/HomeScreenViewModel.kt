@@ -1,5 +1,6 @@
 package ir.atefehtaheri.homescreen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -38,36 +39,43 @@ class HomeScreenViewModel @Inject constructor(
 
 
     private val _nowplayingMovie =
-        MutableStateFlow<NowPlayingPagerState>(NowPlayingPagerState(NowPlayingListDataModel()))
+        MutableStateFlow(NowPlayingPagerState(NowPlayingListDataModel()))
     val nowplayingMovie = _nowplayingMovie.asStateFlow()
 
 
     private val _UpcomingPager =
-        MutableStateFlow<UpcomingPagerState>(UpcomingPagerState(UpcomingListDataModel()))
+        MutableStateFlow(UpcomingPagerState(UpcomingListDataModel()))
     val UpcomingPager = _UpcomingPager.asStateFlow()
 
     private val _tvShowAiring =
-        MutableStateFlow<TvAiringPagerState>(TvAiringPagerState(TvAiringListDataModel()))
+        MutableStateFlow(TvAiringPagerState(TvAiringListDataModel()))
     val tvShowAiring = _tvShowAiring.asStateFlow()
 
 
     private val _topRatedMovie =
-        MutableStateFlow<TopRatedMoviePagerState>(TopRatedMoviePagerState(TopRatedMovieListDataModel()))
+        MutableStateFlow(TopRatedMoviePagerState(TopRatedMovieListDataModel()))
     val topRatedMovie = _topRatedMovie.asStateFlow()
 
 
-
     private val _topRatedTvShow =
-        MutableStateFlow<TopRatedTvShowPagerState>(TopRatedTvShowPagerState(
-            TopRatedTvShowListDataModel()
-        ))
+        MutableStateFlow(
+            TopRatedTvShowPagerState(
+                TopRatedTvShowListDataModel()
+            )
+        )
     val topRatedTvShow = _topRatedTvShow.asStateFlow()
 
+
+    private val _errorState =
+        MutableStateFlow("")
+    val errorState = _errorState.asStateFlow()
+
+
     init {
-    getNowPlayingMovie()
-    getUpcomingMovie()
-    getTvAiringMovie()
-    getTopRatedMovie()
+        getNowPlayingMovie()
+        getUpcomingMovie()
+        getTvAiringMovie()
+        getTopRatedMovie()
         getTopRatedTvShow()
 
     }
@@ -76,15 +84,21 @@ class HomeScreenViewModel @Inject constructor(
     private fun getNowPlayingMovie() {
         viewModelScope.launch {
 
-
+            _nowplayingMovie.update {
+                it.copy(loading = true)
+            }
             val response = nowPlayingRepository.getNowPlayingPager()
             when (response) {
-                is ResultStatus.Failure -> _nowplayingMovie.update {
-                    it.copy(error = response.exception_message)
-                }
+                is ResultStatus.Failure ->
+                    updateError(response.exception_message)
+
+
                 is ResultStatus.Success -> {
                     _nowplayingMovie.update {
-                        NowPlayingPagerState(NowPlayingListDataModel(response.data?.nowplaying),null)
+                        NowPlayingPagerState(
+                            NowPlayingListDataModel(response.data?.nowplaying),
+                            false
+                        )
                     }
                 }
             }
@@ -94,15 +108,20 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun getUpcomingMovie() {
         viewModelScope.launch {
-
+            _UpcomingPager.update {
+                it.copy(loading = true)
+            }
             val response = upcomingListRepository.getUpcomingPager()
             when (response) {
-                is ResultStatus.Failure -> _UpcomingPager.update {
-                    it.copy(error = response.exception_message)
-                }
+                is ResultStatus.Failure ->
+                updateError(response.exception_message)
+
                 is ResultStatus.Success -> {
                     _UpcomingPager.update {
-                        UpcomingPagerState(UpcomingListDataModel(response.data?.upcominglist),null)
+                        UpcomingPagerState(
+                            UpcomingListDataModel(response.data?.upcominglist),
+                            false
+                        )
                     }
                 }
             }
@@ -111,16 +130,18 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun getTvAiringMovie() {
         viewModelScope.launch {
-
+            _tvShowAiring.update {
+                it.copy(loading = true)
+            }
 
             val response = tvAiringRepository.getTvAiringPager()
             when (response) {
-                is ResultStatus.Failure -> _tvShowAiring.update {
-                    it.copy(error = response.exception_message)
-                }
+                is ResultStatus.Failure ->
+                    updateError(response.exception_message)
+
                 is ResultStatus.Success -> {
                     _tvShowAiring.update {
-                        TvAiringPagerState(TvAiringListDataModel(response.data?.airinglist),null)
+                        TvAiringPagerState(TvAiringListDataModel(response.data?.airinglist), false)
                     }
                 }
             }
@@ -129,16 +150,22 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun getTopRatedMovie() {
         viewModelScope.launch {
-
+            _topRatedMovie.update {
+                it.copy(loading = true)
+            }
 
             val response = topRatedMovieRepository.getTopRatedMoviePager()
             when (response) {
-                is ResultStatus.Failure -> _topRatedMovie.update {
-                    it.copy(error = response.exception_message)
-                }
+                is ResultStatus.Failure ->
+                    updateError(response.exception_message)
+
+
                 is ResultStatus.Success -> {
                     _topRatedMovie.update {
-                        TopRatedMoviePagerState(TopRatedMovieListDataModel(response.data?.topratedmovielist),null)
+                        TopRatedMoviePagerState(
+                            TopRatedMovieListDataModel(response.data?.topratedmovielist),
+                            false
+                        )
                     }
                 }
             }
@@ -148,19 +175,42 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun getTopRatedTvShow() {
         viewModelScope.launch {
+            _topRatedTvShow.update {
+                it.copy(loading = true)
+            }
 
 
             val response = topRatedTvShowRepository.getTopRatedTvShowPager()
             when (response) {
-                is ResultStatus.Failure -> _topRatedTvShow.update {
-                    it.copy(error = response.exception_message)
-                }
+                is ResultStatus.Failure ->
+                    updateError(response.exception_message)
+
                 is ResultStatus.Success -> {
                     _topRatedTvShow.update {
-                        TopRatedTvShowPagerState(TopRatedTvShowListDataModel(response.data?.topratedtvshowlist),null)
+                        TopRatedTvShowPagerState(
+                            TopRatedTvShowListDataModel(response.data?.topratedtvshowlist),
+                            false
+                        )
                     }
                 }
             }
         }
     }
+
+
+    private fun updateError(error: String) {
+        if (_errorState.value == "") {
+            _errorState.update {
+                error
+            }
+        }
+    }
+
+    private fun deleteError() {
+        _errorState.update {
+            ""
+        }
+    }
+
 }
+

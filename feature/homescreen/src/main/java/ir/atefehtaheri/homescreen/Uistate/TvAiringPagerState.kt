@@ -6,6 +6,5 @@ import ir.atefehtaheri.upcominglist.repository.models.UpcomingListDataModel
 
 data class TvAiringPagerState(
     val tvAiringListDataModel: TvAiringListDataModel,
-    val error:String?=null,
     val loading:Boolean=true
 )

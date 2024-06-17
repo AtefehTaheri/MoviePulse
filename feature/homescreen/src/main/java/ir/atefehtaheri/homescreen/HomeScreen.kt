@@ -1,6 +1,11 @@
 package ir.atefehtaheri.homescreen
 
 import android.util.Log
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -11,6 +16,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
@@ -18,10 +25,24 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavOptions
 import ir.atefehtaheri.homescreen.components.NowPlayingList
 import ir.atefehtaheri.homescreen.components.TopRatedMovieList
@@ -32,11 +53,41 @@ import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen (
-    navToUpcoming :  (NavOptions?) -> Unit,
-    navToNowPlaying :  (NavOptions?) -> Unit,
-    navToTopRated :  (NavOptions?) -> Unit,
+    navToUpcoming :  (NavOptions?) -> Unit={},
+    navToNowPlaying :  (NavOptions?) -> Unit={},
+    navToTopRated :  (NavOptions?) -> Unit={},
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+
 ) {
 val scrollstate = rememberScrollState()
+
+    val errorState by homeScreenViewModel.errorState.collectAsState()
+
+    if (errorState != ""){
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center)
+        {
+            Image(
+                painter = painterResource(id = R.drawable.error),
+                contentDescription = "",
+                Modifier
+                    .size(100.dp),
+                     contentScale = ContentScale.Fit
+            )
+        Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = errorState,
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.onPrimary,
+                textAlign = TextAlign.Center
+            )
+
+        }
+
+    }else{
 
     Column (
         modifier = Modifier
@@ -45,7 +96,6 @@ val scrollstate = rememberScrollState()
             .background(MaterialTheme.colorScheme.primaryContainer)
 
     ){
-
 
         Row(
             modifier = Modifier
@@ -116,4 +166,35 @@ val scrollstate = rememberScrollState()
         TopRatedMovieList()
         TopRatedTvShowList()
         Spacer(modifier = Modifier.height(10.dp))
-}}
+}
+    }
+}
+
+
+fun Modifier.shimmerEffect(): Modifier = composed {
+    var size by remember {
+        mutableStateOf(IntSize.Zero)
+    }
+    val transition = rememberInfiniteTransition()
+    val startOffsetX by transition.animateFloat(
+        initialValue = -2 * size.width.toFloat(),
+        targetValue = 2 * size.width.toFloat(),
+        animationSpec = infiniteRepeatable(
+            animation = tween(1000)
+        )
+    )
+
+    background(
+        brush = Brush.linearGradient(
+            colors = listOf(
+                MaterialTheme.colorScheme.tertiaryContainer,
+                MaterialTheme.colorScheme.primaryContainer,
+            ),
+            start = Offset(startOffsetX, 0f),
+            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
+        )
+    )
+        .onGloballyPositioned {
+            size = it.size
+        }
+}

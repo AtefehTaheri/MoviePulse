@@ -14,9 +14,9 @@ fun NavController.navigateToHomeScreen(navOptions: NavOptions? = null) {
 }
 
 fun NavGraphBuilder.homeScreenDestination(
-    navToUpcoming :  (NavOptions?) -> Unit,
-    navToNowPlaying :  (NavOptions?) -> Unit,
-    navToTopRated :  (NavOptions?) -> Unit,
+    navToUpcoming :  (NavOptions?) -> Unit={},
+    navToNowPlaying :  (NavOptions?) -> Unit={},
+    navToTopRated :  (NavOptions?) -> Unit={},
    ) {
 
     composable(route = HomeScreenRoute) {
