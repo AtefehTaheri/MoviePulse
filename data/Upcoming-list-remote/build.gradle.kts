@@ -48,9 +48,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    api(project(":core:common"))
+    implementation(project(":core:common"))
     api(project(":core:network"))
-    api(project(":core:database"))
+    implementation(project(":core:database"))
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)

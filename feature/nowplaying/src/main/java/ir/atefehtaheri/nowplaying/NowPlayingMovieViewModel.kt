@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.nowplaying.Uistate.NowPlayingPagerState
 import ir.atefehtaheri.nowplaying.repository.NowPlayingRepository
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel

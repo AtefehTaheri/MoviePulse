@@ -46,7 +46,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
-    api(project(":data:tvshow-airing-remote"))
+    implementation(project(":data:tvshow-airing-remote"))
+    implementation(project(":core:common"))
 
 
     implementation(libs.hilt.android)

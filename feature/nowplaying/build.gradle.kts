@@ -69,7 +69,9 @@ dependencies {
     implementation(libs.coil.compose)
 
 
-    api(project(":data:now-playing-repository"))
+    implementation(project(":data:now-playing-repository"))
+    implementation(project(":core:common"))
+
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.paging.runtime)

@@ -43,7 +43,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    api(project(":data:upcoming-list-remote"))
+    implementation(project(":data:upcoming-list-remote"))
+    implementation(project(":core:common"))
+    implementation(project(":core:database"))
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)

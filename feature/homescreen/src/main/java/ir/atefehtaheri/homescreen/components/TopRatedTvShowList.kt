@@ -16,24 +16,30 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.TopRatedTvShowPagerState
+import ir.atefehtaheri.homescreen.Uistate.movieItem
 import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowDataModel
 
 
 
 @Composable
 internal fun TopRatedTvShowList(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val state by homeScreenViewModel.topRatedTvShow.collectAsState()
-    TopRatedTvShowListScreen(state)
+    TopRatedTvShowListScreen(state,onItemClick)
 }
 
 @Composable
-private fun TopRatedTvShowListScreen(state: TopRatedTvShowPagerState) {
-
+private fun TopRatedTvShowListScreen(
+    state: TopRatedTvShowPagerState,
+    onItemClick:(Type, String,NavOptions?) -> Unit
+    ) {
 
     Column(
         modifier = Modifier
@@ -49,7 +55,7 @@ private fun TopRatedTvShowListScreen(state: TopRatedTvShowPagerState) {
         )
         when {
             state.loading -> LoadingState()
-            else -> ShowListState(state.topRatedTvShowListDataModel.topratedtvshowlist)
+            else -> ShowListState(state.topRatedTvShowListDataModel.topratedtvshowlist,onItemClick)
         }
 
     }
@@ -60,7 +66,7 @@ private fun TopRatedTvShowListScreen(state: TopRatedTvShowPagerState) {
 private fun LoadingState(modifier: Modifier = Modifier) {
     Row (horizontalArrangement =Arrangement.spacedBy(10.dp)){
         (1..3).forEach{
-            PagerItem(null,null,true)
+            PagerItem(null,true)
         }
     }
 }
@@ -69,12 +75,14 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 @Composable
 private fun ShowListState(
     topratedtvshowlist: List<TopRatedTvShowDataModel>?,
+    onItemClick:(Type, String,NavOptions?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     topratedtvshowlist?.let { list->
         LazyRow (horizontalArrangement =Arrangement.spacedBy(10.dp)){
             items(list){
-                PagerItem(it.title ?: "",it.poster_path,false)
+                val item = movieItem(it.title,it.poster_path,it.id,it.vote_average, Type.TVSHOW)
+                PagerItem(item,false,onItemClick)
             }
         }
     }

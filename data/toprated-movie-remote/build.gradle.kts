@@ -51,7 +51,7 @@ dependencies {
 
 
 //
-    api(project(":core:common"))
+    implementation(project(":core:common"))
     api(project(":core:network"))
 //    api(project(":core:database"))
 

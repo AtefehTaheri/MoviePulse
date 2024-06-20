@@ -45,7 +45,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    api(project(":data:toprated-movie-remote"))
+    implementation(project(":data:toprated-movie-remote"))
+    implementation(project(":core:common"))
 
 
     implementation(libs.hilt.android)

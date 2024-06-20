@@ -1,7 +1,6 @@
 package ir.atefehtaheri.upcominglist.remote
 
-import dagger.Module
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.upcominglist.remote.api.UpcomingListApi

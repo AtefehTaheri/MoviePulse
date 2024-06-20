@@ -1,10 +1,9 @@
 package ir.atefehtaheri.homescreen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.homescreen.Uistate.NowPlayingPagerState
 import ir.atefehtaheri.homescreen.Uistate.TopRatedMoviePagerState
 import ir.atefehtaheri.homescreen.Uistate.TopRatedTvShowPagerState
@@ -136,14 +135,14 @@ class HomeScreenViewModel @Inject constructor(
 
             val response = tvAiringRepository.getTvAiringPager()
             when (response) {
-                is ResultStatus.Failure ->
-                    updateError(response.exception_message)
+                is ResultStatus.Failure -> updateError(response.exception_message)
 
                 is ResultStatus.Success -> {
                     _tvShowAiring.update {
                         TvAiringPagerState(TvAiringListDataModel(response.data?.airinglist), false)
                     }
                 }
+
             }
         }
     }

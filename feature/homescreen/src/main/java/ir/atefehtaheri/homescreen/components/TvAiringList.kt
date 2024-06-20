@@ -16,22 +16,26 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.TvAiringPagerState
+import ir.atefehtaheri.homescreen.Uistate.movieItem
 import ir.atefehtaheri.tvairing.repository.models.TvAiringMovieDataModel
 
 
 @Composable
 internal fun TvAiringList(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val state by homeScreenViewModel.tvShowAiring.collectAsState()
-    TvAiringListScreen(state)
+    TvAiringListScreen(state,onItemClick)
 }
 
 @Composable
-private fun TvAiringListScreen(state: TvAiringPagerState) {
+private fun TvAiringListScreen(state: TvAiringPagerState,onItemClick:(Type, String,NavOptions?) -> Unit) {
 
 
     Column(
@@ -48,7 +52,7 @@ private fun TvAiringListScreen(state: TvAiringPagerState) {
         )
     when {
         state.loading -> LoadingState()
-        else -> ShowListState(state.tvAiringListDataModel.airinglist)
+        else -> ShowListState(state.tvAiringListDataModel.airinglist,onItemClick)
     }
 
 }
@@ -58,7 +62,7 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 
         Row (horizontalArrangement =Arrangement.spacedBy(10.dp)){
             (1..3).forEach{
-                PagerItem(null,null,true)
+                PagerItem(null,true)
             }
         }
 }
@@ -67,6 +71,7 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 @Composable
 private fun ShowListState(
     airinglist: List<TvAiringMovieDataModel>?,
+    onItemClick:(Type, String,NavOptions?) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -74,7 +79,8 @@ private fun ShowListState(
 
         LazyRow (horizontalArrangement =Arrangement.spacedBy(10.dp)){
             items(list){
-                PagerItem(it.name,it.poster_path,false)
+                val item = movieItem(it.name,it.poster_path,it.id,it.vote_average,Type.TVSHOW)
+                PagerItem(item,false,onItemClick)
             }
         }
     }

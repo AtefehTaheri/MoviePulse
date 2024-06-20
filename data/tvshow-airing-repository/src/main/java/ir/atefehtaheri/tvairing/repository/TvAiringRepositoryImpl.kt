@@ -1,18 +1,14 @@
 package ir.atefehtaheri.tvairing.repository
 
 
-import ir.atefehtaheri.commen.models.ResultStatus
-import ir.atefehtaheri.database.MovieDatabase
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.tvairing.remote.TvAiringDatasource
 import ir.atefehtaheri.tvairing.repository.models.TvAiringListDataModel
 import ir.atefehtaheri.tvairing.repository.models.asTvAiringListDataModel
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class TvAiringRepositoryImpl @Inject constructor(
     private val tvAiringDatasource: TvAiringDatasource,
-//    private val movieDatabase: MovieDatabase,
 
     ) : TvAiringRepository {
     override suspend fun getTvAiringPager(): ResultStatus<TvAiringListDataModel> {

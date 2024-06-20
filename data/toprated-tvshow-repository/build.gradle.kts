@@ -46,7 +46,8 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
 
-    api(project(":data:toprated-tvshow-remote"))
+    implementation(project(":data:toprated-tvshow-remote"))
+    implementation(project(":core:common"))
 
 
     implementation(libs.hilt.android)

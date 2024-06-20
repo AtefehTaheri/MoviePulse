@@ -1,6 +1,6 @@
 package ir.atefehtaheri.toprated
 
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.toprated.api.TopRatedTvShowApi
 import ir.atefehtaheri.toprated.models.TopRatedTvShowDto

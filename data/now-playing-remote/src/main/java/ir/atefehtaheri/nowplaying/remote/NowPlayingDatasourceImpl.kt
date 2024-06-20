@@ -1,6 +1,6 @@
 package ir.atefehtaheri.nowplaying.remote
 
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.nowplaying.remote.api.NowPlayingApi

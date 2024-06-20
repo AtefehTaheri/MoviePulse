@@ -3,6 +3,7 @@ package ir.atefehtaheri.homescreen.components
 import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,33 +26,36 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.tbuonomo.viewpagerdotsindicator.compose.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.compose.model.DotGraphic
 import com.tbuonomo.viewpagerdotsindicator.compose.type.ShiftIndicatorType
+import ir.atefehtaheri.common.models.Type
+import ir.atefehtaheri.designsystem.shimmerEffect
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.R
 import ir.atefehtaheri.homescreen.Uistate.UpcomingPagerState
-import ir.atefehtaheri.homescreen.shimmerEffect
 import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
 
 
 @Composable
 internal fun UpcomingPager(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val state by homeScreenViewModel.UpcomingPager.collectAsState()
-    UpcomingPagerScreen(state)
+    UpcomingPagerScreen(state,onItemClick)
 }
 
 @Composable
-private fun UpcomingPagerScreen(state: UpcomingPagerState) {
+private fun UpcomingPagerScreen(state: UpcomingPagerState,onItemClick:(Type, String,NavOptions?) -> Unit) {
 
     when {
         state.loading -> LoadingState()
-        else -> ShowListState(state.upcomingListDataModel.upcominglist)
+        else -> ShowListState(state.upcomingListDataModel.upcominglist,onItemClick)
     }
 
 }
@@ -71,6 +75,7 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 @Composable
 private fun ShowListState(
     upcominglist: List<UpcomingMovieDataModel>?,
+    onItemClick:(Type, String,NavOptions?) -> Unit,
     modifier: Modifier = Modifier
     ) {
 
@@ -116,7 +121,10 @@ private fun ShowListState(
                             contentDescription = "",
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(200.dp),
+                                .height(200.dp).clickable {
+                                    onItemClick(Type.MOVIE,upcominglist!![page]?.id.toString(),null)
+
+                                },
                             contentScale = ContentScale.FillBounds
                         )
                         Text(

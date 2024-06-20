@@ -1,7 +1,7 @@
 package ir.atefehtaheri.toprated.repository
 
 
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.toprated.remote.TopRatedMovieDatasource
 import ir.atefehtaheri.toprated.repository.models.TopRatedMovieListDataModel
 import ir.atefehtaheri.toprated.repository.models.asTopRatedMovieListDataModel

@@ -24,25 +24,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.NowPlayingPagerState
 import ir.atefehtaheri.homescreen.Uistate.TopRatedMoviePagerState
-import ir.atefehtaheri.homescreen.shimmerEffect
+import ir.atefehtaheri.homescreen.Uistate.movieItem
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 import ir.atefehtaheri.toprated.repository.models.TopRatedMovieDataModel
 
 
 @Composable
 internal fun NowPlayingList(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 ) {
     val state by homeScreenViewModel.nowplayingMovie.collectAsState()
-    NowPlayingListScreen(state)
+    NowPlayingListScreen(state,onItemClick)
 }
 
 @Composable
-private fun NowPlayingListScreen(state: NowPlayingPagerState) {
+private fun NowPlayingListScreen(
+    state: NowPlayingPagerState,
+    onItemClick:(Type, String, NavOptions?) -> Unit
+) {
 
     Column(
         modifier = Modifier
@@ -58,16 +64,18 @@ private fun NowPlayingListScreen(state: NowPlayingPagerState) {
         )
         when {
             state.loading -> LoadingState()
-            else -> ShowListState(state.nowPlayingListDataModel.nowplaying)
+            else -> ShowListState(state.nowPlayingListDataModel.nowplaying,onItemClick)
         }
     }
 }
 
 @Composable
-private fun LoadingState(modifier: Modifier = Modifier) {
+private fun LoadingState(
+    modifier: Modifier = Modifier
+    ) {
     Row (horizontalArrangement =Arrangement.spacedBy(10.dp)){
         (1..3).forEach{
-            PagerItem(null,null,true)
+            PagerItem(null,true)
         }
     }
 }
@@ -75,13 +83,15 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 
 @Composable
 private fun ShowListState(
-    nowplaying: List<NowPlayingDataModel>? ,
+    nowplaying: List<NowPlayingDataModel>?,
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier
 ) {
     nowplaying?.let { list->
         LazyRow (horizontalArrangement =Arrangement.spacedBy(10.dp)){
             items(list){
-                PagerItem(it.title,it.poster_path,false)
+                val item = movieItem(it.title,it.poster_path,it.id,it.vote_average, Type.MOVIE)
+                PagerItem(item,false,onItemClick)
             }
         }
     }

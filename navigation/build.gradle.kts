@@ -50,7 +50,10 @@ dependencies {
 
     implementation(libs.navigation)
 
+
+    implementation(project(":core:common"))
     implementation(project(":feature:upcominglist"))
     implementation(project(":feature:homescreen"))
+    implementation(project(":feature:detailscreen"))
 
 }

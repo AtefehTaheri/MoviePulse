@@ -1,4 +1,4 @@
-package ir.atefehtaheri.commen.models
+package ir.atefehtaheri.common.models
 
 
 sealed class ResultStatus<out S>{

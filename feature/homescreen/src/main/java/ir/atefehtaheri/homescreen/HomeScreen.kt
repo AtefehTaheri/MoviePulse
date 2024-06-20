@@ -44,6 +44,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavOptions
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.components.NowPlayingList
 import ir.atefehtaheri.homescreen.components.TopRatedMovieList
 import ir.atefehtaheri.homescreen.components.TopRatedTvShowList
@@ -53,9 +54,10 @@ import kotlin.math.roundToInt
 
 @Composable
 fun HomeScreen (
-    navToUpcoming :  (NavOptions?) -> Unit={},
+    navToUpcoming :  (NavOptions?) -> Unit,
     navToNowPlaying :  (NavOptions?) -> Unit={},
     navToTopRated :  (NavOptions?) -> Unit={},
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
 
 ) {
@@ -117,7 +119,7 @@ val scrollstate = rememberScrollState()
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.secondaryContainer)
         }
-        UpcomingPager()
+        UpcomingPager(onItemClick)
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -139,8 +141,8 @@ val scrollstate = rememberScrollState()
                 color = MaterialTheme.colorScheme.secondaryContainer,
             )
         }
-        NowPlayingList()
-        TvAiringList()
+        NowPlayingList(onItemClick)
+        TvAiringList(onItemClick)
 
         Row(
             modifier = Modifier
@@ -163,38 +165,9 @@ val scrollstate = rememberScrollState()
                 color = MaterialTheme.colorScheme.secondaryContainer,
             )
         }
-        TopRatedMovieList()
-        TopRatedTvShowList()
+        TopRatedMovieList(onItemClick)
+        TopRatedTvShowList(onItemClick)
         Spacer(modifier = Modifier.height(10.dp))
 }
     }
-}
-
-
-fun Modifier.shimmerEffect(): Modifier = composed {
-    var size by remember {
-        mutableStateOf(IntSize.Zero)
-    }
-    val transition = rememberInfiniteTransition()
-    val startOffsetX by transition.animateFloat(
-        initialValue = -2 * size.width.toFloat(),
-        targetValue = 2 * size.width.toFloat(),
-        animationSpec = infiniteRepeatable(
-            animation = tween(1000)
-        )
-    )
-
-    background(
-        brush = Brush.linearGradient(
-            colors = listOf(
-                MaterialTheme.colorScheme.tertiaryContainer,
-                MaterialTheme.colorScheme.primaryContainer,
-            ),
-            start = Offset(startOffsetX, 0f),
-            end = Offset(startOffsetX + size.width.toFloat(), size.height.toFloat())
-        )
-    )
-        .onGloballyPositioned {
-            size = it.size
-        }
 }

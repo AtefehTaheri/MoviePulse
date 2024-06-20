@@ -2,7 +2,10 @@ package ir.atefehtaheri.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
+import ir.atefehtaheri.detailscreen.navigation.detailscreenDestination
+import ir.atefehtaheri.detailscreen.navigation.navigateToDetailScreen
 import ir.atefehtaheri.homescreen.navigation.HomeScreenRoute
 import ir.atefehtaheri.homescreen.navigation.homeScreenDestination
 import ir.atefehtaheri.upcominglist.navigation.UpcomingListRoute
@@ -16,10 +19,19 @@ fun SetupNavGraph(navController: NavHostController, startDestination: String = H
 
     NavHost(navController = navController, startDestination = startDestination) {
 
-        upcomingListDestination()
 
-        homeScreenDestination(navController::navigateToUpcomingList)
+        homeScreenDestination(
+//            navToUpcoming :  (NavOptions?) -> Unit,
+//        navToNowPlaying :  (NavOptions?) -> Unit,
+//        navToTopRated :  (NavOptions?) -> Unit,
+            navToUpcoming= navController::navigateToUpcomingList,
+            onItemClick= navController::navigateToDetailScreen
+        )
+
+        upcomingListDestination()
+        detailscreenDestination()
     }
 
 
 }
+

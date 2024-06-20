@@ -80,7 +80,7 @@ dependencies {
     implementation(libs.coil.compose)
 
 
-    api(project(":data:upcoming-list-repository"))
+    implementation(project(":data:upcoming-list-repository"))
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.paging.runtime)

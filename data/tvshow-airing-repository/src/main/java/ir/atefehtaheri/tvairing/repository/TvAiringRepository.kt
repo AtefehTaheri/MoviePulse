@@ -1,6 +1,6 @@
 package ir.atefehtaheri.tvairing.repository
 
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.tvairing.repository.models.TvAiringListDataModel
 import kotlinx.coroutines.flow.Flow
 

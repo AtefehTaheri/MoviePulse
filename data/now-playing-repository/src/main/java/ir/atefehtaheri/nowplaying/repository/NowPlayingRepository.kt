@@ -1,7 +1,7 @@
 package ir.atefehtaheri.nowplaying.repository
 
 import androidx.paging.PagingData
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingListDataModel
 import kotlinx.coroutines.flow.Flow

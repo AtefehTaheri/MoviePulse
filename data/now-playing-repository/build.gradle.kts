@@ -44,7 +44,9 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    api(project(":data:now-playing-remote"))
+    implementation(project(":data:now-playing-remote"))
+    implementation(project(":core:common"))
+    implementation(project(":core:database"))
 
 
     implementation(libs.hilt.android)

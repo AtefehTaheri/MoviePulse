@@ -65,11 +65,15 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
 
-    api(project(":data:upcoming-list-repository"))
-    api(project(":data:now-playing-repository"))
-    api(project(":data:tvshow-airing-repository"))
-    api(project(":data:toprated-movie-repository"))
-    api(project(":data:toprated-tvshow-repository"))
+    implementation(project(":data:upcoming-list-repository"))
+    implementation(project(":data:now-playing-repository"))
+    implementation(project(":data:tvshow-airing-repository"))
+    implementation(project(":data:toprated-movie-repository"))
+    implementation(project(":data:toprated-tvshow-repository"))
+    implementation(project(":core:common"))
+    implementation(project(":core:designsystem"))
+
+//    implementation(project(":core:network"))
 
     implementation(libs.hilt.navigation.compose)
 

@@ -1,6 +1,6 @@
 package ir.atefehtaheri.toprated.remote
 
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.toprated.remote.models.TopRatedMovieDto
 
 interface TopRatedMovieDatasource {

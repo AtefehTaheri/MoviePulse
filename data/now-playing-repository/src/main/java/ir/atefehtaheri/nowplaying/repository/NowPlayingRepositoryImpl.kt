@@ -5,7 +5,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import ir.atefehtaheri.commen.models.ResultStatus
+import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
 import ir.atefehtaheri.nowplaying.remote.NowPlayingDatasource
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
