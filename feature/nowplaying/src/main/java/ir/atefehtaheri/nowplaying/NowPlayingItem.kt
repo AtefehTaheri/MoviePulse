@@ -1,4 +1,4 @@
-package ir.atefehtaheri.upcominglist
+package ir.atefehtaheri.nowplaying
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -32,13 +32,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
+import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 
 
 @Composable
-internal fun UpcomingItem(
+internal fun NowPlayingItem(
 //    onItemClick:()->Unit,
-    UpcomingMovie : UpcomingMovieDataModel
+    NowPlayingMovie : NowPlayingDataModel
 
 ) {
 
@@ -69,7 +69,7 @@ internal fun UpcomingItem(
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + UpcomingMovie.poster_path) ?: "")
+                        .data(Uri.parse(baseurl + NowPlayingMovie.poster_path) ?: "")
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -93,7 +93,7 @@ internal fun UpcomingItem(
                         tint = MaterialTheme.colorScheme.secondaryContainer
                     )
 
-                    Text(text = String.format("%.1f", UpcomingMovie.vote_average),
+                    Text(text = String.format("%.1f", NowPlayingMovie.vote_average),
                         color = MaterialTheme.colorScheme.secondaryContainer)
                 }
 
@@ -109,7 +109,7 @@ internal fun UpcomingItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = UpcomingMovie.title,
+                    text = NowPlayingMovie.title,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.secondaryContainer,
                     modifier = Modifier.fillMaxWidth(),
@@ -120,7 +120,7 @@ internal fun UpcomingItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = UpcomingMovie.overview,
+                    text = NowPlayingMovie.overview,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     maxLines = 2,
@@ -141,7 +141,7 @@ internal fun UpcomingItem(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = UpcomingMovie.release_date,
+                        text = NowPlayingMovie.release_date,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.outlineVariant,
                     )

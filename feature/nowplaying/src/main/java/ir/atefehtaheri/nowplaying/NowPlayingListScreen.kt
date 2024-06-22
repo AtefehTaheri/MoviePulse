@@ -1,4 +1,4 @@
-package ir.atefehtaheri.upcominglist
+package ir.atefehtaheri.nowplaying
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,21 +27,21 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
-import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
+import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 
 
 @Composable
-internal fun UpcomingListRoute(
+internal fun NowPlayingListRoute(
     modifier: Modifier = Modifier,
-    upcomingMovieViewModel: UpcomingMovieViewModel = hiltViewModel()
+    upcomingMovieViewModel: NowPlayingMovieViewModel = hiltViewModel()
 ) {
-    val movies = upcomingMovieViewModel.getUpcomingMovies().collectAsLazyPagingItems()
-    UpcomingListScreen(movies)
+    val movies = upcomingMovieViewModel.getNowPlayingMovies().collectAsLazyPagingItems()
+    NowPlayingListScreen(movies)
 }
 
 @Composable
-private fun UpcomingListScreen(
-    movies: LazyPagingItems<UpcomingMovieDataModel>
+private fun NowPlayingListScreen(
+    movies: LazyPagingItems<NowPlayingDataModel>
 ) {
 
     val context = LocalContext.current
@@ -70,7 +70,7 @@ private fun LoadingState(){
 
 @Composable
 private fun ShowListScreen(
-    movies: LazyPagingItems<UpcomingMovieDataModel>
+    movies: LazyPagingItems<NowPlayingDataModel>
 ) {
     val listState = rememberLazyListState()
 
@@ -89,7 +89,7 @@ private fun ShowListScreen(
                 val item = movies[index]
 
                 if (item != null) {
-                   UpcomingItem(
+                    NowPlayingItem(
                         item
                     )
                 }

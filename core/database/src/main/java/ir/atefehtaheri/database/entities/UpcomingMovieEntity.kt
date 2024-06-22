@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "Upcoming")
 data class UpcomingMovieEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true) val id_auto: Int = 0,
     val id: Int,
     val backdrop_path: String?,
     val title: String,

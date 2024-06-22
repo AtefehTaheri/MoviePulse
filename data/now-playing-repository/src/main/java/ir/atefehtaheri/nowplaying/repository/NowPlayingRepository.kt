@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface NowPlayingRepository {
     companion object {
-        const val NETWORK_PAGE_SIZE = 10
+        const val NETWORK_PAGE_SIZE = 20
     }
     suspend fun getNowPlayingPager(): ResultStatus<NowPlayingListDataModel>
 

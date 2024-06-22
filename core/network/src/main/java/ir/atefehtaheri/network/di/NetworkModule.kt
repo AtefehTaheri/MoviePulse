@@ -13,6 +13,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
@@ -35,17 +36,13 @@ object NetworkModule {
         return NetworkResponseCallAdapterFactory.create()
     }
 
-//
-//    @Provides
-//    fun provideContext(@ApplicationContext context: Context): Context {
-//        return context
-//    }
 
 }
 fun provideRetrofit(
     baseUrl: String,
     networkResponseCallAdapterFactory: CallAdapter.Factory
 ): Retrofit {
+
 
     return Retrofit.Builder()
 

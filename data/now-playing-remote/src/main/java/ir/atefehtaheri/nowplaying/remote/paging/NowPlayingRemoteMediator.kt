@@ -77,7 +77,7 @@ class NowPlayingRemoteMediator @Inject constructor(
                             next_page = nextPage,
                         )
                         )
-                        nowPlayingDao.upsertAllNowPlayingMovie(data)
+                        nowPlayingDao.insertAllNowPlayingMovie(data)
                     }
                     MediatorResult.Success(
                         endOfPaginationReached = networkResponse.body?.results!!.isEmpty()

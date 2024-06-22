@@ -49,6 +49,8 @@ class UpcomingRemoteMediator @Inject constructor(
                 }
             }
             Log.d("Paging",page.toString())
+            Log.d("Paging",loadType.name)
+
             val networkResponse = upcomingListApi.getUpcomingList(page = page)
 
             when (networkResponse) {
@@ -77,7 +79,7 @@ class UpcomingRemoteMediator @Inject constructor(
                             next_page = nextPage,
                         )
                         )
-                        movieDao.upsertUpcomingAll(data)
+                        movieDao.insertUpcomingAll(data)
                     }
                     MediatorResult.Success(
                         endOfPaginationReached = networkResponse.body?.results!!.isEmpty()
