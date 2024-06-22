@@ -48,6 +48,13 @@ dependencies {
     api(project(":core:network"))
     implementation(project(":core:database"))
 
+
+
+    implementation(libs.paging.runtime)
+    testImplementation(libs.paging.common)
+    implementation(libs.paging.compose)
+
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)
     implementation(libs.okhttp)
@@ -55,4 +62,11 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
+
+
+    implementation(libs.room.runtime)
+    annotationProcessor(libs.room.compiler)
+    kapt(libs.room.compiler)
+    implementation(libs.room.ktx)
+    implementation(libs.room.paging)
 }

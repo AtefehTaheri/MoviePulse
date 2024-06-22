@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase
 import ir.atefehtaheri.database.dao.NowPlayingMovieDao
 import ir.atefehtaheri.database.dao.UpcomingMovieDao
 import ir.atefehtaheri.database.dao.RemoteKeyDao
+import ir.atefehtaheri.database.dao.TvAiringDao
 import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
 import ir.atefehtaheri.database.entities.RemoteKey
 import ir.atefehtaheri.database.entities.UpcomingMovieEntity
@@ -15,5 +16,8 @@ abstract class MovieDatabase:RoomDatabase() {
     abstract val upcomingMovieDao: UpcomingMovieDao
     abstract val remoteKeyDao: RemoteKeyDao
     abstract val nowPlayingMovieDao: NowPlayingMovieDao
+    abstract val tvAiringDao: TvAiringDao
+
+
 
 }
