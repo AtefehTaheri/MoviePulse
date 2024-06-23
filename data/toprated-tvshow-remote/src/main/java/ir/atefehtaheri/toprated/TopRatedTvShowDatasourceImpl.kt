@@ -1,14 +1,16 @@
 package ir.atefehtaheri.toprated
 
 import ir.atefehtaheri.common.models.ResultStatus
+import ir.atefehtaheri.database.MovieDatabase
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.toprated.api.TopRatedTvShowApi
 import ir.atefehtaheri.toprated.models.TopRatedTvShowDto
+import ir.atefehtaheri.toprated.pager.TvTopRatedRemoteMediator
 import javax.inject.Inject
 
 class TopRatedTvShowDatasourceImpl @Inject constructor(
     private val topRatedTvShowApi : TopRatedTvShowApi,
-//    private val movieDatabase: MovieDatabase,
+    private val movieDatabase: MovieDatabase,
 
     ): TopRatedTvShowDatasource {
     override suspend fun getTopRatedTvShowPager(): ResultStatus<TopRatedTvShowDto> {
@@ -18,6 +20,10 @@ class TopRatedTvShowDatasourceImpl @Inject constructor(
            is NetworkResponse.Success -> ResultStatus.Success(result.body)
            is NetworkResponse.UnknownError -> ResultStatus.Failure(result.error.message ?: "UnknownError")
        }
+    }
+
+    override fun getTvTopRatedRemoteMediator(): TvTopRatedRemoteMediator {
+        return TvTopRatedRemoteMediator(topRatedTvShowApi,movieDatabase)
     }
 
 

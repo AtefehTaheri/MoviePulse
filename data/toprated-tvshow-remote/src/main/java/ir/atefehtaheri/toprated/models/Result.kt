@@ -1,5 +1,8 @@
 package ir.atefehtaheri.toprated.models
 
+import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
+import ir.atefehtaheri.database.entities.TvTopRatedEntity
+
 data class Movie(
     val adult: Boolean,
     val backdrop_path: String?,
@@ -16,3 +19,16 @@ data class Movie(
     val vote_average: Double,
     val vote_count: Int
 )
+
+fun Movie.asTvTopRatedEntity(): TvTopRatedEntity {
+    return TvTopRatedEntity(
+
+        id= id,
+        backdrop_path=backdrop_path ,
+        name = name,
+        overview=overview ,
+        poster_path=poster_path ,
+        first_air_date= first_air_date,
+        vote_average= vote_average
+    )
+}
