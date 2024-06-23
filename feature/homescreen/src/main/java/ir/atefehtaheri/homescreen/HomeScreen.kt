@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavOptions
 import ir.atefehtaheri.common.models.Type
+import ir.atefehtaheri.designsystem.ShowError
 import ir.atefehtaheri.homescreen.components.NowPlayingList
 import ir.atefehtaheri.homescreen.components.TopRatedMovieList
 import ir.atefehtaheri.homescreen.components.TopRatedTvShowList
@@ -66,29 +67,29 @@ val scrollstate = rememberScrollState()
     val errorState by homeScreenViewModel.errorState.collectAsState()
 
     if (errorState != ""){
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primaryContainer),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center)
-        {
-            Image(
-                painter = painterResource(id = R.drawable.error),
-                contentDescription = "",
-                Modifier
-                    .size(100.dp),
-                     contentScale = ContentScale.Fit
-            )
-        Spacer(modifier = Modifier.height(10.dp))
-            Text(
-                text = errorState,
-                style = MaterialTheme.typography.titleMedium,
-                color = MaterialTheme.colorScheme.onPrimary,
-                textAlign = TextAlign.Center
-            )
-
-        }
-
+//        Column(modifier = Modifier
+//            .fillMaxSize()
+//            .background(MaterialTheme.colorScheme.primaryContainer),
+//            horizontalAlignment = Alignment.CenterHorizontally,
+//            verticalArrangement = Arrangement.Center)
+//        {
+//            Image(
+//                painter = painterResource(id = R.drawable.error),
+//                contentDescription = "",
+//                Modifier
+//                    .size(100.dp),
+//                     contentScale = ContentScale.Fit
+//            )
+//        Spacer(modifier = Modifier.height(10.dp))
+//            Text(
+//                text = errorState,
+//                style = MaterialTheme.typography.titleMedium,
+//                color = MaterialTheme.colorScheme.onPrimary,
+//                textAlign = TextAlign.Center
+//            )
+//
+//        }
+        ShowError(errorState)
     }else{
 
     Column (

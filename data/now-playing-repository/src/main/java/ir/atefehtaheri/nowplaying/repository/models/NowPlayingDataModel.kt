@@ -1,7 +1,6 @@
 package ir.atefehtaheri.nowplaying.repository.models
 
 import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
-import ir.atefehtaheri.database.entities.UpcomingMovieEntity
 import ir.atefehtaheri.nowplaying.remote.models.Movie
 import ir.atefehtaheri.nowplaying.remote.models.NowPlayingDto
 

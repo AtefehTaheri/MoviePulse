@@ -27,6 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import ir.atefehtaheri.designsystem.ShowError
 import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
 
 
@@ -44,9 +45,8 @@ private fun UpcomingListScreen(
     movies: LazyPagingItems<UpcomingMovieDataModel>
 ) {
 
-    val context = LocalContext.current
     when {
-        movies.loadState.refresh is LoadState.Error -> ErrorState(
+        movies.loadState.refresh is LoadState.Error -> ShowError(
             (movies.loadState.refresh as LoadState.Error).error.message ?: ""
         )
 

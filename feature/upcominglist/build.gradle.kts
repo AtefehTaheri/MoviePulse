@@ -81,6 +81,8 @@ dependencies {
 
 
     implementation(project(":data:upcoming-list-repository"))
+    implementation(project(":core:designsystem"))
+
     implementation(libs.hilt.navigation.compose)
 
     implementation(libs.paging.runtime)

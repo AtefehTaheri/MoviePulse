@@ -1,7 +1,6 @@
 package ir.atefehtaheri.tvairing.repository.models
 
 import ir.atefehtaheri.database.entities.TvAiringEntity
-import ir.atefehtaheri.database.entities.UpcomingMovieEntity
 import ir.atefehtaheri.tvairing.remote.models.Movie
 import ir.atefehtaheri.tvairing.remote.models.TvAiringDto
 

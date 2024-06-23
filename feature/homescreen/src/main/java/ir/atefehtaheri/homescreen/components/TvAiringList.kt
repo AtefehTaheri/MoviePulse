@@ -21,7 +21,7 @@ import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.TvAiringPagerState
 import ir.atefehtaheri.homescreen.Uistate.movieItem
-import ir.atefehtaheri.tvairing.repository.models.TvAiringMovieDataModel
+import ir.atefehtaheri.tvairing.repository.models.TvAiringDataModel
 
 
 @Composable
@@ -70,7 +70,7 @@ private fun LoadingState(modifier: Modifier = Modifier) {
 
 @Composable
 private fun ShowListState(
-    airinglist: List<TvAiringMovieDataModel>?,
+    airinglist: List<TvAiringDataModel>?,
     onItemClick:(Type, String,NavOptions?) -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -32,13 +32,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
+import ir.atefehtaheri.nowplaying.model.NowplayingItem
 
 
 @Composable
 internal fun NowPlayingItem(
 //    onItemClick:()->Unit,
-    NowPlayingMovie : NowPlayingDataModel
+    nowplayingItem : NowplayingItem
 
 ) {
 
@@ -69,7 +69,7 @@ internal fun NowPlayingItem(
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + NowPlayingMovie.poster_path) ?: "")
+                        .data(Uri.parse(baseurl + nowplayingItem.poster_path) ?: "")
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -93,7 +93,7 @@ internal fun NowPlayingItem(
                         tint = MaterialTheme.colorScheme.secondaryContainer
                     )
 
-                    Text(text = String.format("%.1f", NowPlayingMovie.vote_average),
+                    Text(text = String.format("%.1f", nowplayingItem.vote_average),
                         color = MaterialTheme.colorScheme.secondaryContainer)
                 }
 
@@ -109,7 +109,7 @@ internal fun NowPlayingItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = NowPlayingMovie.title,
+                    text = nowplayingItem.title,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.secondaryContainer,
                     modifier = Modifier.fillMaxWidth(),
@@ -120,7 +120,7 @@ internal fun NowPlayingItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = NowPlayingMovie.overview,
+                    text = nowplayingItem.overview,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     maxLines = 2,
@@ -141,7 +141,7 @@ internal fun NowPlayingItem(
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = NowPlayingMovie.release_date,
+                        text = nowplayingItem.release_date,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.outlineVariant,
                     )
