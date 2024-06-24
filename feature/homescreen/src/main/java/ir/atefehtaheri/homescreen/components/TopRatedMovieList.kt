@@ -21,7 +21,7 @@ import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.TopRatedMoviePagerState
 import ir.atefehtaheri.homescreen.Uistate.movieItem
-import ir.atefehtaheri.toprated.repository.models.TopRatedMovieDataModel
+import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieDataModel
 
 
 @Composable

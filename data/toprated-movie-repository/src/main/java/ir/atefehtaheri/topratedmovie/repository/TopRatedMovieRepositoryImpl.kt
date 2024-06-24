@@ -1,4 +1,4 @@
-package ir.atefehtaheri.toprated.repository
+package ir.atefehtaheri.topratedmovie.repository
 
 
 import androidx.paging.ExperimentalPagingApi
@@ -8,11 +8,11 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
-import ir.atefehtaheri.toprated.remote.TopRatedMovieDatasource
-import ir.atefehtaheri.toprated.repository.models.TopRatedMovieDataModel
-import ir.atefehtaheri.toprated.repository.models.TopRatedMovieListDataModel
-import ir.atefehtaheri.toprated.repository.models.asTopRatedMovieDataModel
-import ir.atefehtaheri.toprated.repository.models.asTopRatedMovieListDataModel
+import ir.atefehtaheri.topratedmovie.remote.TopRatedMovieDatasource
+import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieDataModel
+import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieListDataModel
+import ir.atefehtaheri.topratedmovie.repository.models.asTopRatedMovieDataModel
+import ir.atefehtaheri.topratedmovie.repository.models.asTopRatedMovieListDataModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject

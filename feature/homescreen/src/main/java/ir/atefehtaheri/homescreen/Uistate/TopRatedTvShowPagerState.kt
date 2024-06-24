@@ -1,6 +1,6 @@
 package ir.atefehtaheri.homescreen.Uistate
 
-import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowListDataModel
+import ir.atefehtaheri.topratedtvshow.repository.models.TopRatedTvShowListDataModel
 
 data class TopRatedTvShowPagerState(
     val topRatedTvShowListDataModel: TopRatedTvShowListDataModel,

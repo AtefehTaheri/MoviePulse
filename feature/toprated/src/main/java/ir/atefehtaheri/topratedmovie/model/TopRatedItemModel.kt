@@ -1,9 +1,9 @@
-package ir.atefehtaheri.nowplaying.model
+package ir.atefehtaheri.topratedmovie.model
 
-import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
-import ir.atefehtaheri.tvairing.repository.models.TvAiringDataModel
+import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieDataModel
+import ir.atefehtaheri.topratedtvshow.repository.models.TopRatedTvShowDataModel
 
-data class NowplayingItemModel(
+data class TopRatedItemModel(
     val id: Int,
     val title: String,
     val overview: String,
@@ -13,8 +13,8 @@ data class NowplayingItemModel(
 )
 
 
-fun TvAiringDataModel.asNowplayingItem(): NowplayingItemModel {
-    return NowplayingItemModel(
+fun TopRatedTvShowDataModel.asTopRatedItem(): TopRatedItemModel {
+    return TopRatedItemModel(
         id = id,
         title = name,
         overview = overview,
@@ -24,8 +24,8 @@ fun TvAiringDataModel.asNowplayingItem(): NowplayingItemModel {
     )
 }
 
-fun NowPlayingDataModel.asNowplayingItem(): NowplayingItemModel {
-    return NowplayingItemModel(
+fun TopRatedMovieDataModel.asTopRatedItem(): TopRatedItemModel {
+    return TopRatedItemModel(
         id = id,
         title = title,
         overview = overview,

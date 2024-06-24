@@ -21,7 +21,7 @@ import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
 import ir.atefehtaheri.homescreen.Uistate.TopRatedTvShowPagerState
 import ir.atefehtaheri.homescreen.Uistate.movieItem
-import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowDataModel
+import ir.atefehtaheri.topratedtvshow.repository.models.TopRatedTvShowDataModel
 
 
 
@@ -81,7 +81,7 @@ private fun ShowListState(
     topratedtvshowlist?.let { list->
         LazyRow (horizontalArrangement =Arrangement.spacedBy(10.dp)){
             items(list){
-                val item = movieItem(it.title,it.poster_path,it.id,it.vote_average, Type.TVSHOW)
+                val item = movieItem(it.name,it.poster_path,it.id,it.vote_average, Type.TVSHOW)
                 PagerItem(item,false,onItemClick)
             }
         }

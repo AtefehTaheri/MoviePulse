@@ -11,10 +11,10 @@ import ir.atefehtaheri.homescreen.Uistate.TvAiringPagerState
 import ir.atefehtaheri.homescreen.Uistate.UpcomingPagerState
 import ir.atefehtaheri.nowplaying.repository.NowPlayingRepository
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingListDataModel
-import ir.atefehtaheri.toprated.repository.TopRatedMovieRepository
-import ir.atefehtaheri.toprated.repository.TopRatedTvShowRepository
-import ir.atefehtaheri.toprated.repository.models.TopRatedMovieListDataModel
-import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowListDataModel
+import ir.atefehtaheri.topratedmovie.repository.TopRatedMovieRepository
+import ir.atefehtaheri.topratedtvshow.repository.TopRatedTvShowRepository
+import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieListDataModel
+import ir.atefehtaheri.topratedtvshow.repository.models.TopRatedTvShowListDataModel
 import ir.atefehtaheri.tvairing.repository.TvAiringRepository
 import ir.atefehtaheri.tvairing.repository.models.TvAiringListDataModel
 import ir.atefehtaheri.upcominglist.repository.UpcomingListRepository

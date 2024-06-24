@@ -1,4 +1,4 @@
-package ir.atefehtaheri.nowplaying
+package ir.atefehtaheri.topratedmovie
 
 import android.net.Uri
 import androidx.compose.foundation.background
@@ -32,13 +32,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import ir.atefehtaheri.nowplaying.model.NowplayingItemModel
+import ir.atefehtaheri.toprated.R
+import ir.atefehtaheri.topratedmovie.model.TopRatedItemModel
 
 
 @Composable
-internal fun NowPlayingItem(
+internal fun TopRatedItem(
 //    onItemClick:()->Unit,
-    nowplayingItemModel : NowplayingItemModel
+    topRatedItemModel : TopRatedItemModel
 
 ) {
 
@@ -57,7 +58,6 @@ internal fun NowPlayingItem(
                 .fillMaxWidth()
                 .height(IntrinsicSize.Max)
                 .padding(10.dp)
-
         ) {
 
             val baseurl= "https://image.tmdb.org/t/p/w500"
@@ -66,10 +66,9 @@ internal fun NowPlayingItem(
                 .height(150.dp),
                 contentAlignment = Alignment.Center
             ){
-
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + nowplayingItemModel.poster_path) ?: "")
+                        .data(Uri.parse(baseurl + topRatedItemModel.poster_path) ?: "")
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -93,12 +92,9 @@ internal fun NowPlayingItem(
                         tint = MaterialTheme.colorScheme.secondaryContainer
                     )
 
-                    Text(text = String.format("%.1f", nowplayingItemModel.vote_average),
+                    Text(text = String.format("%.1f", topRatedItemModel.vote_average),
                         color = MaterialTheme.colorScheme.secondaryContainer)
                 }
-
-
-
             }
             Column(
                 modifier = Modifier
@@ -109,7 +105,7 @@ internal fun NowPlayingItem(
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = nowplayingItemModel.title,
+                    text = topRatedItemModel.title,
                     style = MaterialTheme.typography.titleMedium,
                     color = MaterialTheme.colorScheme.secondaryContainer,
                     modifier = Modifier.fillMaxWidth(),
@@ -120,7 +116,7 @@ internal fun NowPlayingItem(
                 Text(
                     modifier = Modifier
                         .fillMaxWidth(),
-                    text = nowplayingItemModel.overview,
+                    text = topRatedItemModel.overview,
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onTertiaryContainer,
                     maxLines = 2,
@@ -137,16 +133,14 @@ internal fun NowPlayingItem(
                         tint = MaterialTheme.colorScheme.outlineVariant
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-
                     Text(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        text = nowplayingItemModel.release_date,
+                        text = topRatedItemModel.release_date,
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.outlineVariant,
                     )
                 }
-
             }
         }
     }

@@ -56,5 +56,6 @@ dependencies {
     implementation(project(":feature:nowplaying"))
     implementation(project(":feature:homescreen"))
     implementation(project(":feature:detailscreen"))
+    implementation(project(":feature:toprated"))
 
 }

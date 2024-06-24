@@ -1,9 +1,8 @@
-package ir.atefehtaheri.toprated.repository.models
+package ir.atefehtaheri.topratedmovie.repository.models
 
 import ir.atefehtaheri.database.entities.MovieTopRatedEntity
-import ir.atefehtaheri.database.entities.TvTopRatedEntity
-import ir.atefehtaheri.toprated.remote.models.Movie
-import ir.atefehtaheri.toprated.remote.models.TopRatedMovieDto
+import ir.atefehtaheri.topratedmovie.remote.models.Movie
+import ir.atefehtaheri.topratedmovie.remote.models.TopRatedMovieDto
 
 
 data class TopRatedMovieListDataModel(

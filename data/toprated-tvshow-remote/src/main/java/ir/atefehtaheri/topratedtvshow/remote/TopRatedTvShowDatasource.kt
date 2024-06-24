@@ -1,8 +1,8 @@
-package ir.atefehtaheri.toprated.remote
+package ir.atefehtaheri.topratedtvshow.remote
 
 import ir.atefehtaheri.common.models.ResultStatus
-import ir.atefehtaheri.toprated.remote.models.TopRatedTvShowDto
-import ir.atefehtaheri.toprated.remote.pager.TvTopRatedRemoteMediator
+import ir.atefehtaheri.topratedtvshow.remote.models.TopRatedTvShowDto
+import ir.atefehtaheri.topratedtvshow.remote.pager.TvTopRatedRemoteMediator
 
 interface TopRatedTvShowDatasource {
 

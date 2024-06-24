@@ -1,11 +1,11 @@
-package ir.atefehtaheri.toprated.remote.di
+package ir.atefehtaheri.topratedtvshow.remote.di
 
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ir.atefehtaheri.toprated.remote.TopRatedTvShowDatasource
-import ir.atefehtaheri.toprated.remote.TopRatedTvShowDatasourceImpl
+import ir.atefehtaheri.topratedtvshow.remote.TopRatedTvShowDatasource
+import ir.atefehtaheri.topratedtvshow.remote.TopRatedTvShowDatasourceImpl
 import javax.inject.Singleton
 
 @Module

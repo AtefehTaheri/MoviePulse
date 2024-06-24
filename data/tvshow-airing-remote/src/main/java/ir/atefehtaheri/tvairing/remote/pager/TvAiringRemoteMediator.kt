@@ -48,7 +48,6 @@ class TvAiringRemoteMediator @Inject constructor(
                     remoteKey.next_page ?:  return MediatorResult.Success(true)
                 }
             }
-            Log.d("Paging",page.toString())
             val networkResponse = tvAiringApi.getTvAiringList(page = page)
 
             when (networkResponse) {

@@ -48,8 +48,6 @@ class UpcomingRemoteMediator @Inject constructor(
                     remoteKey.next_page ?:  return MediatorResult.Success(true)
                 }
             }
-            Log.d("Paging",page.toString())
-            Log.d("Paging",loadType.name)
 
             val networkResponse = upcomingListApi.getUpcomingList(page = page)
 
