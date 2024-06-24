@@ -1,11 +1,11 @@
-package ir.atefehtaheri.toprated.di
+package ir.atefehtaheri.toprated.remote.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.atefehtaheri.network.di.createApiService
-import ir.atefehtaheri.toprated.api.TopRatedTvShowApi
+import ir.atefehtaheri.toprated.remote.api.TopRatedTvShowApi
 import retrofit2.Retrofit
 import javax.inject.Singleton
 

@@ -1,4 +1,4 @@
-package ir.atefehtaheri.toprated.models
+package ir.atefehtaheri.toprated.remote.models
 
 data class TopRatedTvShowDto(
     val page: Int,

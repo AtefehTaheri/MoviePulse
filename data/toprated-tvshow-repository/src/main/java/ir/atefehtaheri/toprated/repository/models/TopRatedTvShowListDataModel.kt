@@ -1,8 +1,8 @@
 package ir.atefehtaheri.toprated.repository.models
 
 import ir.atefehtaheri.database.entities.TvTopRatedEntity
-import ir.atefehtaheri.toprated.models.Movie
-import ir.atefehtaheri.toprated.models.TopRatedTvShowDto
+import ir.atefehtaheri.toprated.remote.models.Movie
+import ir.atefehtaheri.toprated.remote.models.TopRatedTvShowDto
 
 
 data class TopRatedTvShowListDataModel(

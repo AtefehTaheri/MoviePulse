@@ -7,26 +7,28 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import ir.atefehtaheri.database.MovieDatabase
+import ir.atefehtaheri.database.entities.MovieTopRatedEntity
 import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
 import ir.atefehtaheri.database.entities.RemoteKey
 import ir.atefehtaheri.database.entities.TvTopRatedEntity
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.toprated.api.TopRatedTvShowApi
 import ir.atefehtaheri.toprated.models.asTvTopRatedEntity
+import ir.atefehtaheri.toprated.remote.api.TopRatedMovieApi
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class TvTopRatedRemoteMediator @Inject constructor(
-    private val topRatedTvShowApi: TopRatedTvShowApi,
+class MovieTopRatedRemoteMediator @Inject constructor(
+    private val topRatedMovieApi: TopRatedMovieApi,
     private val movieDatabase: MovieDatabase
-) : RemoteMediator<Int, TvTopRatedEntity>() {
+) : RemoteMediator<Int, MovieTopRatedEntity>() {
 
     private val remoteKeyDao = movieDatabase.remoteKeyDao
-    private val tvTopRatedDao = movieDatabase.tvTopRatedDao
+    private val movieTopRatedDao = movieDatabase.movieTopRatedDao
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TvTopRatedEntity>
+        state: PagingState<Int, MovieTopRatedEntity>
     ): MediatorResult {
 
 
@@ -42,7 +44,7 @@ class TvTopRatedRemoteMediator @Inject constructor(
 
                 LoadType.APPEND -> {
                     val remoteKey = movieDatabase.withTransaction {
-                        remoteKeyDao.getKeyByMovie("toprated_tvshow")
+                        remoteKeyDao.getKeyByMovie("toprated_movie")
                     } ?: return MediatorResult.Success(true)
 
 
@@ -50,7 +52,7 @@ class TvTopRatedRemoteMediator @Inject constructor(
                 }
             }
             Log.d("Paging",page.toString())
-            val networkResponse = topRatedTvShowApi.getTopRatedTvShowList(page = page)
+            val networkResponse = topRatedMovieApi.getTopRatedMovieList(page = page)
 
             when (networkResponse) {
                 is NetworkResponse.ApiError -> MediatorResult.Error(Throwable(networkResponse.body.message))
@@ -74,7 +76,7 @@ class TvTopRatedRemoteMediator @Inject constructor(
 
                         remoteKeyDao.insertKey(
                             RemoteKey(
-                            id = "toprated_tvshow",
+                            id = "toprated_movie",
                             next_page = nextPage,
                         )
                         )

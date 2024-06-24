@@ -1,4 +1,4 @@
-package ir.atefehtaheri.toprated.models
+package ir.atefehtaheri.toprated.remote.models
 
 import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
 import ir.atefehtaheri.database.entities.TvTopRatedEntity

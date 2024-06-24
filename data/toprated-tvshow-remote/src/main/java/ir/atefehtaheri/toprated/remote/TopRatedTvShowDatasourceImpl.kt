@@ -1,11 +1,12 @@
-package ir.atefehtaheri.toprated
+package ir.atefehtaheri.toprated.remote
 
 import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
 import ir.atefehtaheri.network.NetworkResponse
-import ir.atefehtaheri.toprated.api.TopRatedTvShowApi
-import ir.atefehtaheri.toprated.models.TopRatedTvShowDto
-import ir.atefehtaheri.toprated.pager.TvTopRatedRemoteMediator
+import ir.atefehtaheri.toprated.remote.TopRatedTvShowDatasource
+import ir.atefehtaheri.toprated.remote.api.TopRatedTvShowApi
+import ir.atefehtaheri.toprated.remote.models.TopRatedTvShowDto
+import ir.atefehtaheri.toprated.remote.pager.TvTopRatedRemoteMediator
 import javax.inject.Inject
 
 class TopRatedTvShowDatasourceImpl @Inject constructor(

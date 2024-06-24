@@ -8,7 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
-import ir.atefehtaheri.toprated.TopRatedTvShowDatasource
+import ir.atefehtaheri.toprated.remote.TopRatedTvShowDatasource
 import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowDataModel
 import ir.atefehtaheri.toprated.repository.models.TopRatedTvShowListDataModel
 import ir.atefehtaheri.toprated.repository.models.asTopRatedTvShowDataModel
