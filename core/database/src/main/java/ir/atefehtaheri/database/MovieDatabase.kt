@@ -30,5 +30,5 @@ abstract class MovieDatabase:RoomDatabase() {
     abstract val tvAiringDao: TvAiringDao
     abstract val tvTopRatedDao: TvTopRatedDao
     abstract val movieTopRatedDao: MovieTopRatedDao
-    
+
 }

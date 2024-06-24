@@ -1,4 +1,4 @@
-package ir.atefehtaheri.nowplaying.remote.paging
+package ir.atefehtaheri.topratedtvshow.remote.pager
 
 import android.util.Log
 import androidx.paging.ExperimentalPagingApi
@@ -7,25 +7,25 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import ir.atefehtaheri.database.MovieDatabase
-import ir.atefehtaheri.database.entities.NowPlayingMovieEntity
 import ir.atefehtaheri.database.entities.RemoteKey
+import ir.atefehtaheri.database.entities.TvTopRatedEntity
 import ir.atefehtaheri.network.NetworkResponse
-import ir.atefehtaheri.nowplaying.remote.api.NowPlayingApi
-import ir.atefehtaheri.nowplaying.remote.models.asNowPlayingMovieEntity
+import ir.atefehtaheri.topratedtvshow.remote.api.TopRatedTvShowApi
+import ir.atefehtaheri.topratedtvshow.remote.models.asTvTopRatedEntity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class NowPlayingRemoteMediator @Inject constructor(
-    private val nowPlayingApi: NowPlayingApi,
+class TvTopRatedRemoteMediator @Inject constructor(
+    private val topRatedTvShowApi: TopRatedTvShowApi,
     private val movieDatabase: MovieDatabase
-) : RemoteMediator<Int, NowPlayingMovieEntity>() {
+) : RemoteMediator<Int, TvTopRatedEntity>() {
 
     private val remoteKeyDao = movieDatabase.remoteKeyDao
-    private val nowPlayingDao = movieDatabase.nowPlayingMovieDao
+    private val tvTopRatedDao = movieDatabase.tvTopRatedDao
 
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, NowPlayingMovieEntity>
+        state: PagingState<Int, TvTopRatedEntity>
     ): MediatorResult {
 
 
@@ -41,14 +41,14 @@ class NowPlayingRemoteMediator @Inject constructor(
 
                 LoadType.APPEND -> {
                     val remoteKey = movieDatabase.withTransaction {
-                        remoteKeyDao.getKeyByMovie("nowplaying_movie")
+                        remoteKeyDao.getKeyByMovie("toprated_tvshow")
                     } ?: return MediatorResult.Success(true)
 
 
                     remoteKey.next_page ?:  return MediatorResult.Success(true)
                 }
             }
-            val networkResponse = nowPlayingApi.getNowPlaying(page = page)
+            val networkResponse = topRatedTvShowApi.getTopRatedTvShowList(page = page)
 
             when (networkResponse) {
                 is NetworkResponse.ApiError -> MediatorResult.Error(Throwable(networkResponse.body.message))
@@ -58,10 +58,10 @@ class NowPlayingRemoteMediator @Inject constructor(
 
                     movieDatabase.withTransaction {
                         if(loadType == LoadType.REFRESH) {
-                            nowPlayingDao.clearAllNowPlayingMovie()
+                            tvTopRatedDao.clearAllTvTopRated()
                         }
                         val data =
-                            networkResponse.body?.results?.map { it.asNowPlayingMovieEntity() }
+                            networkResponse.body?.results?.map { it.asTvTopRatedEntity() }
                                 ?: emptyList()
 
                         val nextPage = if(networkResponse.body?.results!!.isEmpty()) {
@@ -72,11 +72,11 @@ class NowPlayingRemoteMediator @Inject constructor(
 
                         remoteKeyDao.insertKey(
                             RemoteKey(
-                            id = "nowplaying_movie",
+                            id = "toprated_tvshow",
                             next_page = nextPage,
                         )
                         )
-                        nowPlayingDao.insertAllNowPlayingMovie(data)
+                        tvTopRatedDao.insertTvTopRatedAll(data)
                     }
                     MediatorResult.Success(
                         endOfPaginationReached = networkResponse.body?.results!!.isEmpty()
