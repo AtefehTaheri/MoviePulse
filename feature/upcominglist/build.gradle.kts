@@ -82,6 +82,7 @@ dependencies {
 
     implementation(project(":data:upcoming-list-repository"))
     implementation(project(":core:designsystem"))
+    implementation(project(":core:common"))
 
     implementation(libs.hilt.navigation.compose)
 

@@ -6,6 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,14 +32,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.toprated.R
 import ir.atefehtaheri.topratedmovie.model.asTopRatedItem
 import ir.atefehtaheri.topratedmovie.repository.models.TopRatedMovieDataModel
@@ -47,18 +51,20 @@ import ir.atefehtaheri.topratedtvshow.repository.models.TopRatedTvShowDataModel
 
 @Composable
 internal fun TopRatedListRoute(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     topRatedListViewModel: TopRatedListViewModel = hiltViewModel()
 ) {
     val movies = topRatedListViewModel.getTopRatedMovies().collectAsLazyPagingItems()
     val tvshow =topRatedListViewModel.getTopRatedTvshow().collectAsLazyPagingItems()
-    TopRatedListScreen(movies,tvshow)
+    TopRatedListScreen(movies,tvshow,onItemClick)
 }
 
 @Composable
 private fun TopRatedListScreen(
     movies: LazyPagingItems<TopRatedMovieDataModel>,
-    tvshow: LazyPagingItems<TopRatedTvShowDataModel>
+    tvshow: LazyPagingItems<TopRatedTvShowDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
 
 ) {
 
@@ -72,7 +78,7 @@ private fun TopRatedListScreen(
         movies.loadState.refresh is LoadState.Loading -> LoadingState()
         tvshow.loadState.refresh is LoadState.Loading -> LoadingState()
 
-        else -> ShowListScreen(movies,tvshow)
+        else -> ShowListScreen(movies,tvshow,onItemClick)
     }
 }
 
@@ -94,22 +100,42 @@ private fun LoadingState(){
 @Composable
 private fun ShowListScreen(
     movies: LazyPagingItems<TopRatedMovieDataModel>,
-    tvshow: LazyPagingItems<TopRatedTvShowDataModel>
+    tvshow: LazyPagingItems<TopRatedTvShowDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
 
 ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState { InformationTabs.entries.size }
 
 
-    Column(modifier = Modifier.fillMaxSize()
+    Box(modifier = Modifier
+        .fillMaxSize()
         .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
+
+
+
+        HorizontalPager(
+            state = pagerState, modifier = Modifier
+                .fillMaxWidth()
+                .height(1000.dp)
+
+        ) { index ->
+            when (index) {
+                0 -> PageContent_Movie(movies ,onItemClick)
+                1 -> PageContent_Tvshow(tvshow, onItemClick)
+            }
+        }
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.Black.copy(alpha = 0.5f))) {
 
         TabRow(selectedTabIndex = selectedTabIndex,
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 15.dp,start=15.dp,end=15.dp, bottom = 8.dp)
+//                .align(Alignment.TopCenter)
+                .padding(top = 15.dp, start = 15.dp, end = 15.dp, bottom = 15.dp)
                 .clip(RoundedCornerShape(90)),
             indicator = { tabPositions: List<TabPosition> ->
                 Box {}
@@ -140,19 +166,7 @@ private fun ShowListScreen(
                     },
                 )
             }
-        }
-
-        HorizontalPager(
-            state = pagerState, modifier = Modifier
-                .fillMaxWidth()
-                .height(1000.dp)
-
-        ) { index ->
-            when (index) {
-                0 -> PageContent_Movie(movies)
-                1 -> PageContent_Tvshow(tvshow)
-            }
-        }
+        }}
     }
 }
 
@@ -194,10 +208,12 @@ enum class InformationTabs(val text: String) {
 @Composable
 fun PageContent_Movie(
     movies: LazyPagingItems<TopRatedMovieDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
 ) {
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()
+    Box(modifier = Modifier
+        .fillMaxSize()
         .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         LazyColumn(
@@ -206,6 +222,12 @@ fun PageContent_Movie(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            item {
+                Spacer(modifier = Modifier.height(70.dp))
+            }
+
+
+
             items(
                 count = movies.itemCount,
             ) { index ->
@@ -213,7 +235,8 @@ fun PageContent_Movie(
 
                 if (item != null) {
                     TopRatedItem(
-                        item.asTopRatedItem()
+                        item.asTopRatedItem(),
+                        onItemClick
                     )
                 }
             }
@@ -230,11 +253,13 @@ fun PageContent_Movie(
 
 @Composable
 fun PageContent_Tvshow(
-    tvshow: LazyPagingItems<TopRatedTvShowDataModel>
+    tvshow: LazyPagingItems<TopRatedTvShowDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
 ) {
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()
+    Box(modifier = Modifier
+        .fillMaxSize()
         .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         LazyColumn(
@@ -242,6 +267,9 @@ fun PageContent_Tvshow(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item {
+                Spacer(modifier = Modifier.height(70.dp))
+            }
             items(
                 count = tvshow.itemCount,
             ) { index ->
@@ -249,7 +277,8 @@ fun PageContent_Tvshow(
 
                 if (item != null) {
                     TopRatedItem(
-                        item.asTopRatedItem()
+                        item.asTopRatedItem(),
+                        onItemClick
                     )
                 }
             }

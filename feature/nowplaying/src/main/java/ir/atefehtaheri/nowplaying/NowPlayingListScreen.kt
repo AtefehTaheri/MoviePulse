@@ -31,14 +31,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.nowplaying.model.asNowplayingItem
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 import ir.atefehtaheri.tvairing.repository.models.TvAiringDataModel
@@ -46,41 +49,46 @@ import ir.atefehtaheri.tvairing.repository.models.TvAiringDataModel
 
 @Composable
 internal fun NowPlayingListRoute(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     nowPlayingMovieViewModel: NowPlayingMovieViewModel = hiltViewModel()
 ) {
     val movies = nowPlayingMovieViewModel.getNowPlayingMovies().collectAsLazyPagingItems()
-    val tvshow =nowPlayingMovieViewModel.getTvShowAiring().collectAsLazyPagingItems()
-    NowPlayingListScreen(movies,tvshow)
+    val tvshow = nowPlayingMovieViewModel.getTvShowAiring().collectAsLazyPagingItems()
+    NowPlayingListScreen(movies, tvshow,onItemClick)
 }
 
 @Composable
 private fun NowPlayingListScreen(
     movies: LazyPagingItems<NowPlayingDataModel>,
-    tvshow: LazyPagingItems<TvAiringDataModel>
-
-) {
+    tvshow: LazyPagingItems<TvAiringDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit,
+    ) {
 
     when {
         movies.loadState.refresh is LoadState.Error -> ErrorState(
             (movies.loadState.refresh as LoadState.Error).error.message ?: ""
         )
+
         tvshow.loadState.refresh is LoadState.Error -> ErrorState(
             (tvshow.loadState.refresh as LoadState.Error).error.message ?: ""
         )
+
         movies.loadState.refresh is LoadState.Loading -> LoadingState()
         tvshow.loadState.refresh is LoadState.Loading -> LoadingState()
 
-        else -> ShowListScreen(movies,tvshow)
+        else -> ShowListScreen(movies, tvshow,onItemClick)
     }
 }
 
 @Composable
-private fun LoadingState(){
+private fun LoadingState() {
 
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .background(MaterialTheme.colorScheme.primaryContainer)) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer)
+    ) {
 
         CircularProgressIndicator(
             modifier = Modifier.align(Alignment.Center),
@@ -93,53 +101,20 @@ private fun LoadingState(){
 @Composable
 private fun ShowListScreen(
     movies: LazyPagingItems<NowPlayingDataModel>,
-    tvshow: LazyPagingItems<TvAiringDataModel>
+    tvshow: LazyPagingItems<TvAiringDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit,
 
-) {
+    ) {
     var selectedTabIndex by remember { mutableIntStateOf(0) }
     val pagerState = rememberPagerState { InformationTabs.entries.size }
 
 
-    Column(modifier = Modifier.fillMaxSize()
-        .background(MaterialTheme.colorScheme.primaryContainer)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
 
-        TabRow(selectedTabIndex = selectedTabIndex,
-            containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 15.dp,start=15.dp,end=15.dp, bottom = 8.dp)
-                .clip(RoundedCornerShape(90)),
-            indicator = { tabPositions: List<TabPosition> ->
-                Box {}
-            }
-        ) {
-            InformationTabs.entries.forEachIndexed { index, currentTab ->
-                Tab(
-                    modifier = if (selectedTabIndex == index) Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            MaterialTheme.colorScheme.secondaryContainer
-                        )
-                    else Modifier
-                        .clip(RoundedCornerShape(50))
-                        .background(
-                            MaterialTheme.colorScheme.tertiaryContainer
-                        ),
-
-
-                    selected = selectedTabIndex == index,
-                    selectedContentColor = MaterialTheme.colorScheme.primaryContainer,
-                    unselectedContentColor = MaterialTheme.colorScheme.outline,
-                    onClick = {
-                        selectedTabIndex = index
-                    },
-                    text = {
-                        Text(text = currentTab.text, style = MaterialTheme.typography.titleMedium)
-                    },
-                )
-            }
-        }
 
         HorizontalPager(
             state = pagerState, modifier = Modifier
@@ -148,8 +123,54 @@ private fun ShowListScreen(
 
         ) { index ->
             when (index) {
-                0 -> PageContent_Movie(movies)
-                1 -> PageContent_Tvshow(tvshow)
+                0 -> PageContent_Movie(movies ,onItemClick)
+                1 -> PageContent_Tvshow(tvshow,onItemClick)
+            }
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.Black.copy(alpha = 0.5f))
+        ) {
+            TabRow(selectedTabIndex = selectedTabIndex,
+                containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 15.dp, start = 15.dp, end = 15.dp, bottom = 8.dp)
+                    .clip(RoundedCornerShape(90)),
+                indicator = { tabPositions: List<TabPosition> ->
+                    Box {}
+                }
+            ) {
+                InformationTabs.entries.forEachIndexed { index, currentTab ->
+                    Tab(
+                        modifier = if (selectedTabIndex == index) Modifier
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                MaterialTheme.colorScheme.secondaryContainer
+                            )
+                        else Modifier
+                            .clip(RoundedCornerShape(50))
+                            .background(
+                                MaterialTheme.colorScheme.tertiaryContainer
+                            ),
+
+
+                        selected = selectedTabIndex == index,
+                        selectedContentColor = MaterialTheme.colorScheme.primaryContainer,
+                        unselectedContentColor = MaterialTheme.colorScheme.outline,
+                        onClick = {
+                            selectedTabIndex = index
+                        },
+                        text = {
+                            Text(
+                                text = currentTab.text,
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                        }
+                    )
+                }
             }
         }
     }
@@ -185,26 +206,32 @@ private fun ErrorState(
 
     }
 }
+
 enum class InformationTabs(val text: String) {
-    Movie( "Movie"),
-    TvShow( "TvShow")
+    Movie("Movie"),
+    TvShow("TvShow")
 }
 
 @Composable
 fun PageContent_Movie(
-    movies: LazyPagingItems<NowPlayingDataModel>
-) {
+    movies: LazyPagingItems<NowPlayingDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
+    ) {
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()
-        .background(MaterialTheme.colorScheme.primaryContainer)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         LazyColumn(
             modifier = Modifier, state = listState,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-
+            item {
+                Spacer(modifier = Modifier.height(70.dp))
+            }
             items(
                 count = movies.itemCount,
             ) { index ->
@@ -212,7 +239,8 @@ fun PageContent_Movie(
 
                 if (item != null) {
                     NowPlayingItem(
-                        item.asNowplayingItem()
+                        item.asNowplayingItem(),
+                        onItemClick
                     )
                 }
             }
@@ -229,18 +257,24 @@ fun PageContent_Movie(
 
 @Composable
 fun PageContent_Tvshow(
-    tvshow: LazyPagingItems<TvAiringDataModel>
-) {
+    tvshow: LazyPagingItems<TvAiringDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
+    ) {
     val listState = rememberLazyListState()
 
-    Box(modifier = Modifier.fillMaxSize()
-        .background(MaterialTheme.colorScheme.primaryContainer)
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         LazyColumn(
             modifier = Modifier, state = listState,
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            item {
+                Spacer(modifier = Modifier.height(70.dp))
+            }
             items(
                 count = tvshow.itemCount,
             ) { index ->
@@ -248,7 +282,8 @@ fun PageContent_Tvshow(
 
                 if (item != null) {
                     NowPlayingItem(
-                        item.asNowplayingItem()
+                        item.asNowplayingItem(),
+                        onItemClick
                     )
                 }
             }

@@ -122,7 +122,7 @@ private fun ShowListState(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .height(200.dp).clickable {
-                                    onItemClick(Type.MOVIE,upcominglist!![page]?.id.toString(),null)
+                                    onItemClick(upcominglist!![page].type,upcominglist!![page].id.toString(),null)
 
                                 },
                             contentScale = ContentScale.FillBounds

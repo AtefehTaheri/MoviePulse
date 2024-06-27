@@ -1,9 +1,11 @@
 package ir.atefehtaheri.nowplaying.model
 
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.nowplaying.repository.models.NowPlayingDataModel
 import ir.atefehtaheri.tvairing.repository.models.TvAiringDataModel
 
 data class NowplayingItemModel(
+    val type : Type,
     val id: Int,
     val title: String,
     val overview: String,
@@ -15,6 +17,7 @@ data class NowplayingItemModel(
 
 fun TvAiringDataModel.asNowplayingItem(): NowplayingItemModel {
     return NowplayingItemModel(
+        type = Type.TVSHOW,
         id = id,
         title = name,
         overview = overview,
@@ -26,6 +29,7 @@ fun TvAiringDataModel.asNowplayingItem(): NowplayingItemModel {
 
 fun NowPlayingDataModel.asNowplayingItem(): NowplayingItemModel {
     return NowplayingItemModel(
+        type = Type.MOVIE,
         id = id,
         title = title,
         overview = overview,

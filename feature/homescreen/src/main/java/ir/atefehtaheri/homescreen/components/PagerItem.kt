@@ -39,7 +39,7 @@ import ir.atefehtaheri.homescreen.Uistate.movieItem
 fun PagerItem(
     movieItem : movieItem?,
     loading: Boolean = true,
-    onItemClick:(Type, String, NavOptions?) -> Unit ={ a,b,c->}
+    onItemClick:(Type, String, NavOptions?) -> Unit ={ type,id,option->}
 ) {
     ElevatedCard(
         modifier = Modifier

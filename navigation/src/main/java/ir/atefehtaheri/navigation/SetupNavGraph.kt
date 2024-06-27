@@ -29,10 +29,16 @@ fun SetupNavGraph(navController: NavHostController, startDestination: String = H
             navToNowPlaying = navController::navigateToNowplaying,
         )
 
-        upcomingListDestination()
-        nowPlayingMovieDestination()
+        upcomingListDestination(
+            onItemClick= navController::navigateToDetailScreen
+        )
+        nowPlayingMovieDestination(
+            onItemClick= navController::navigateToDetailScreen
+        )
         detailscreenDestination()
-        TopRatedListDestination()
+        TopRatedListDestination(
+            onItemClick= navController::navigateToDetailScreen
+        )
     }
 
 

@@ -24,26 +24,30 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavOptions
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.designsystem.ShowError
 import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
 
 
 @Composable
 internal fun UpcomingListRoute(
+    onItemClick:(Type, String, NavOptions?) -> Unit,
     modifier: Modifier = Modifier,
     upcomingMovieViewModel: UpcomingMovieViewModel = hiltViewModel()
 ) {
     val movies = upcomingMovieViewModel.getUpcomingMovies().collectAsLazyPagingItems()
-    UpcomingListScreen(movies)
+    UpcomingListScreen(movies,onItemClick)
 }
 
 @Composable
 private fun UpcomingListScreen(
-    movies: LazyPagingItems<UpcomingMovieDataModel>
-) {
+    movies: LazyPagingItems<UpcomingMovieDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit
+    ) {
 
     when {
         movies.loadState.refresh is LoadState.Error -> ShowError(
@@ -51,7 +55,7 @@ private fun UpcomingListScreen(
         )
 
         movies.loadState.refresh is LoadState.Loading -> LoadingState()
-        else -> ShowListScreen(movies)
+        else -> ShowListScreen(movies,onItemClick)
     }
 }
 
@@ -70,8 +74,10 @@ private fun LoadingState(){
 
 @Composable
 private fun ShowListScreen(
-    movies: LazyPagingItems<UpcomingMovieDataModel>
-) {
+    movies: LazyPagingItems<UpcomingMovieDataModel>,
+    onItemClick:(Type, String, NavOptions?) -> Unit,
+
+    ) {
     val listState = rememberLazyListState()
 
     Box(modifier = Modifier.fillMaxSize()
@@ -90,7 +96,7 @@ private fun ShowListScreen(
 
                 if (item != null) {
                    UpcomingItem(
-                        item
+                        item,onItemClick
                     )
                 }
             }

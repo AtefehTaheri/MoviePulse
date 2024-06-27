@@ -2,6 +2,7 @@ package ir.atefehtaheri.upcominglist
 
 import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,21 +31,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
 
 
 @Composable
 internal fun UpcomingItem(
 //    onItemClick:()->Unit,
-    UpcomingMovie : UpcomingMovieDataModel
+    UpcomingMovie : UpcomingMovieDataModel,
+    onItemClick:(Type, String, NavOptions?) -> Unit
 
-) {
+    ) {
 
     ElevatedCard(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth().clickable {
+                onItemClick(UpcomingMovie.type,UpcomingMovie?.id.toString(),null)
+
+            },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),

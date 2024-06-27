@@ -1,5 +1,6 @@
 package ir.atefehtaheri.upcominglist.repository.models
 
+import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.database.entities.UpcomingMovieEntity
 import ir.atefehtaheri.upcominglist.remote.models.Movie
 import ir.atefehtaheri.upcominglist.remote.models.UpcomingListDto
@@ -9,6 +10,7 @@ data class UpcomingListDataModel(
 )
 
 data class UpcomingMovieDataModel(
+    val type: Type,
     val backdrop_path: String?,
     val id: Int,
     val title: String,
@@ -30,6 +32,7 @@ fun UpcomingListDto.asUpcomingListDataModel(): UpcomingListDataModel {
 
 fun Movie.asUpcomingMovieDataModel(): UpcomingMovieDataModel {
     return UpcomingMovieDataModel(
+        type = Type.MOVIE,
         backdrop_path = backdrop_path,
         id = id,
         title = title,
@@ -42,6 +45,7 @@ fun Movie.asUpcomingMovieDataModel(): UpcomingMovieDataModel {
 
 fun UpcomingMovieEntity.asUpcomingMovieDataModel(): UpcomingMovieDataModel{
     return UpcomingMovieDataModel(
+        type = Type.MOVIE,
         backdrop_path =backdrop_path,
         id =id,
         title =title,
