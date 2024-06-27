@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.atefehtaheri.common.BASE_URL
 import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.upcominglist.repository.models.UpcomingMovieDataModel
 
@@ -67,7 +68,6 @@ internal fun UpcomingItem(
 
         ) {
 
-            val baseurl= "https://image.tmdb.org/t/p/w500"
             Box ( modifier = Modifier
                 .weight(1f)
                 .height(150.dp),
@@ -76,7 +76,7 @@ internal fun UpcomingItem(
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + UpcomingMovie.poster_path) ?: "")
+                        .data(Uri.parse(BASE_URL + UpcomingMovie.poster_path) ?: "")
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),

@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
 
-
     kotlin("kapt")
     alias(libs.plugins.hilt)
 }
@@ -48,7 +47,6 @@ dependencies {
 
     implementation(project(":core:common"))
     api(project(":core:network"))
-//    api(project(":core:database"))
 
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter)

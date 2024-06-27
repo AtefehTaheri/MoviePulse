@@ -23,12 +23,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.atefehtaheri.common.BASE_URL
 import ir.atefehtaheri.detailscreen.R
 
 @Composable
 fun CreditsItem(image:String?,name:String,job:String) {
 
-            val baseurl = "https://image.tmdb.org/t/p/w500"
             Row( modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 30.dp, vertical = 5.dp),
@@ -37,7 +37,7 @@ fun CreditsItem(image:String?,name:String,job:String) {
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + image))
+                        .data(Uri.parse(BASE_URL + image))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),

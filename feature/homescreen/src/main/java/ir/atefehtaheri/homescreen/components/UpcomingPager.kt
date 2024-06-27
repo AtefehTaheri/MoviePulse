@@ -32,6 +32,7 @@ import coil.request.ImageRequest
 import com.tbuonomo.viewpagerdotsindicator.compose.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.compose.model.DotGraphic
 import com.tbuonomo.viewpagerdotsindicator.compose.type.ShiftIndicatorType
+import ir.atefehtaheri.common.BASE_URL
 import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.designsystem.shimmerEffect
 import ir.atefehtaheri.homescreen.HomeScreenViewModel
@@ -105,13 +106,12 @@ private fun ShowListState(
                     state = pagerState
                 ) { page ->
                     val image = upcominglist!![page].backdrop_path
-                    val baseurl = "https://image.tmdb.org/t/p/w500"
                     Box {
 
 
                         AsyncImage(
                             model = ImageRequest.Builder(LocalContext.current)
-                                .data(Uri.parse(baseurl + image) ?: "")
+                                .data(Uri.parse(BASE_URL + image) ?: "")
 
                                 .crossfade(true)
                                 .build(),

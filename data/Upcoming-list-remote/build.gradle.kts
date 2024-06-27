@@ -1,20 +1,14 @@
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.hilt)
-//    id ("kotlin-kapt")
-//    id("com.google.dagger.hilt.android")
 }
-
-
 
 android {
     namespace = "ir.atefehtaheri.movie_list_remote"
     compileSdk = 34
     defaultConfig {
-
         minSdk = 30
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

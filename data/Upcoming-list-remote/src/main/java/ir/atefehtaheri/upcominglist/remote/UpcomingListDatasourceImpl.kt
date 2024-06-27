@@ -1,7 +1,9 @@
 package ir.atefehtaheri.upcominglist.remote
 
+import android.util.Log
 import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
+import ir.atefehtaheri.network.BuildConfig
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.upcominglist.remote.api.UpcomingListApi
 import ir.atefehtaheri.upcominglist.remote.models.UpcomingListDto
@@ -14,6 +16,9 @@ class UpcomingListDatasourceImpl @Inject constructor(
 
     ): UpcomingListDatasource {
     override suspend fun getUpcomingPager(): ResultStatus<UpcomingListDto> {
+
+
+
        return when(val result =upcomingListApi.getUpcomingList()){
            is NetworkResponse.ApiError -> ResultStatus.Failure(result.body.message)
            is NetworkResponse.NetworkError -> ResultStatus.Failure(result.error.message ?: "NetworkError")

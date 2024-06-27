@@ -271,5 +271,5 @@ private fun ShowListState(
 
 enum class InformationTabs(val text: String) {
     About( "About"),
-    Cast( "Cast")
+    Credits( "Credits")
 }

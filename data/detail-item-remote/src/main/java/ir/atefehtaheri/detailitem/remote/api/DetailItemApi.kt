@@ -2,6 +2,7 @@ package ir.atefehtaheri.detailitem.remote.api
 
 import ir.atefehtaheri.detailitem.remote.models.movie.MovieDetailDto
 import ir.atefehtaheri.detailitem.remote.models.tvshow.TvShowDetailDto
+import ir.atefehtaheri.network.BuildConfig
 import ir.atefehtaheri.network.ErrorResponse
 import ir.atefehtaheri.network.NetworkResponse
 import retrofit2.http.GET
@@ -16,7 +17,6 @@ interface DetailItemApi {
     suspend fun getDetailMovie(
         @Path("movie_id") movie_id:String,
         @Query("append_to_response") append_to_response:String= "credits,images",
-        @Query("api_key") key:String  ="be0fe8d68a81b318e913dbc895f0fe97",
     ): NetworkResponse<MovieDetailDto, ErrorResponse>
 
 
@@ -24,7 +24,6 @@ interface DetailItemApi {
     suspend fun getDetailTvShow(
         @Path("series_id") series_id:String,
         @Query("append_to_response") append_to_response:String= "credits,images",
-        @Query("api_key") key:String  ="be0fe8d68a81b318e913dbc895f0fe97",
     ): NetworkResponse<TvShowDetailDto, ErrorResponse>
 
 

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavOptions
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import ir.atefehtaheri.common.BASE_URL
 import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.designsystem.shimmerEffect
 import ir.atefehtaheri.homescreen.R
@@ -62,12 +63,11 @@ fun PagerItem(
                 .shimmerEffect())
             
         } else {
-            val baseurl = "https://image.tmdb.org/t/p/w500"
 
             Box {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + movieItem!!.imgurl))
+                        .data(Uri.parse(BASE_URL + movieItem!!.imgurl))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),

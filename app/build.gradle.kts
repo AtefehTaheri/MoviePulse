@@ -4,8 +4,6 @@ plugins {
 
     kotlin("kapt")
     alias(libs.plugins.hilt)
-//    id ("kotlin-kapt")
-//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -13,6 +11,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
+
         applicationId = "ir.atefehtaheri.moviepulse"
         minSdk = 30
         targetSdk = 34

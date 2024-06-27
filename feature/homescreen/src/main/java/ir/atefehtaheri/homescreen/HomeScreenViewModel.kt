@@ -32,10 +32,7 @@ class HomeScreenViewModel @Inject constructor(
     private val tvAiringRepository: TvAiringRepository,
     private val topRatedMovieRepository: TopRatedMovieRepository,
     private val topRatedTvShowRepository: TopRatedTvShowRepository,
-
-
     ) : ViewModel() {
-
 
     private val _nowplayingMovie =
         MutableStateFlow(NowPlayingPagerState(NowPlayingListDataModel()))

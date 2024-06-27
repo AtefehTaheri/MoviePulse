@@ -1,12 +1,8 @@
-import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
-
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     kotlin("kapt")
     alias(libs.plugins.hilt)
-//    id ("kotlin-kapt")
-//    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -14,6 +10,12 @@ android {
     compileSdk = 34
 
     defaultConfig {
+
+        buildConfigField(
+            "String",
+            "API_KEY",
+            "\"${project.findProperty("API_KEY")}\""
+        )
 
         minSdk = 30
 
@@ -36,6 +38,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 

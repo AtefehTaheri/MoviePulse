@@ -30,6 +30,7 @@ import coil.request.ImageRequest
 import com.tbuonomo.viewpagerdotsindicator.compose.DotsIndicator
 import com.tbuonomo.viewpagerdotsindicator.compose.model.DotGraphic
 import com.tbuonomo.viewpagerdotsindicator.compose.type.ShiftIndicatorType
+import ir.atefehtaheri.common.BASE_URL
 import ir.atefehtaheri.detailscreen.R
 import kotlin.math.min
 
@@ -47,7 +48,6 @@ internal fun HeaderScreen(
 ) {
 
     val pagerState = rememberPagerState(pageCount = {min(backDrops.size,countpage)})
-    val baseurl = "https://image.tmdb.org/t/p/w500"
 
     Box(
         modifier = Modifier
@@ -62,7 +62,7 @@ internal fun HeaderScreen(
 
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + image))
+                        .data(Uri.parse(BASE_URL + image))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),
@@ -98,7 +98,7 @@ internal fun HeaderScreen(
             {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(Uri.parse(baseurl + poster_path))
+                        .data(Uri.parse(BASE_URL + poster_path))
                         .crossfade(true)
                         .build(),
                     placeholder = painterResource(R.drawable.placeholder),

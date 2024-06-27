@@ -1,20 +1,20 @@
-package ir.atefehtaheri.upcominglist.remote.api
+package ir.atefehtaheri.tvairing.remote.api
 
 import ir.atefehtaheri.network.BuildConfig
 import ir.atefehtaheri.network.ErrorResponse
 import ir.atefehtaheri.network.NetworkResponse
-import ir.atefehtaheri.upcominglist.remote.models.UpcomingListDto
+import ir.atefehtaheri.tvairing.remote.models.TvAiringDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-interface UpcomingListApi {
+interface TvAiringApi {
 
 
-    @GET("3/movie/upcoming?")
-    suspend fun getUpcomingList(
+    @GET("3/tv/airing_today?")
+    suspend fun getTvAiringList(
         @Query("language") language:String= "en-US",
         @Query("page") page:Int = 1,
-    ): NetworkResponse<UpcomingListDto, ErrorResponse>
+    ): NetworkResponse<TvAiringDto, ErrorResponse>
 
 }

@@ -51,8 +51,6 @@ class DetailScreenViewModel @Inject constructor(
         }
     }
 
-
-
     fun getDetailTvShow(tvshowid:String) {
         viewModelScope.launch {
 
@@ -82,7 +80,6 @@ class DetailScreenViewModel @Inject constructor(
             }
         }
     }
-
 
 }
 

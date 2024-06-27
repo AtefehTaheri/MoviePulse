@@ -1,7 +1,9 @@
 package ir.atefehtaheri.nowplaying.remote
 
+import android.util.Log
 import ir.atefehtaheri.common.models.ResultStatus
 import ir.atefehtaheri.database.MovieDatabase
+import ir.atefehtaheri.network.BuildConfig
 import ir.atefehtaheri.network.NetworkResponse
 import ir.atefehtaheri.nowplaying.remote.api.NowPlayingApi
 import ir.atefehtaheri.nowplaying.remote.models.NowPlayingDto
@@ -14,6 +16,8 @@ class NowPlayingDatasourceImpl @Inject constructor(
 
     ): NowPlayingDatasource {
     override suspend fun getNowPlayingPager(): ResultStatus<NowPlayingDto> {
+
+
        return when(val result =nowPlayingApi.getNowPlaying()){
            is NetworkResponse.ApiError -> ResultStatus.Failure(result.body.message)
            is NetworkResponse.NetworkError -> ResultStatus.Failure(result.error.message ?: "NetworkError")
