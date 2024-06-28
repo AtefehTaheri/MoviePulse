@@ -58,11 +58,13 @@ fun CreditsItem(image:String?,name:String,job:String) {
                 ){
                     Text(
                         text =  name,
+                        style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.secondaryContainer
                     )
                     Spacer(modifier = Modifier.height(10.dp))
                     Text(
                         text = job,
+                        style = MaterialTheme.typography.titleSmall,
                         color = MaterialTheme.colorScheme.secondaryContainer
                     )
                 }

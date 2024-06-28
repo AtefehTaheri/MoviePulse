@@ -42,6 +42,7 @@ class DetailScreenViewModel @Inject constructor(
 
 
                 is ResultStatus.Success -> {
+                    clearError()
                     _detailMovie.update {
                         it.copy(response.data,false)
 
@@ -64,6 +65,7 @@ class DetailScreenViewModel @Inject constructor(
 
 
                 is ResultStatus.Success -> {
+                    clearError()
                     _detailTvShow.update {
                         it.copy(response.data,false)
 
@@ -79,6 +81,12 @@ class DetailScreenViewModel @Inject constructor(
                 error
             }
         }
+    }
+
+    private fun clearError() {
+            _errorState.update {
+                ""
+            }
     }
 
 }

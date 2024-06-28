@@ -77,7 +77,7 @@ dependencies {
 
     implementation(project(":data:now-playing-repository"))
     implementation(project(":data:tvshow-airing-repository"))
-
+    implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
 
     implementation(libs.hilt.navigation.compose)

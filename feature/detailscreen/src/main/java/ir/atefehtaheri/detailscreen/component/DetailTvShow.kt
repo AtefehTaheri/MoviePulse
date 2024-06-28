@@ -5,7 +5,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.rememberScrollState
@@ -23,7 +21,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.rounded.Timer
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
@@ -51,31 +48,33 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import ir.atefehtaheri.designsystem.ShowError
-import ir.atefehtaheri.detailitem.repository.models.MovieDetailDataModel
+import ir.atefehtaheri.detailitem.repository.models.TvShowDetailDataModel
 import ir.atefehtaheri.detailscreen.DetailScreenViewModel
 
 @Composable
-internal fun DetailMovie(
+internal fun DetailTvShow(
     detailScreenViewModel: DetailScreenViewModel = hiltViewModel()
 ) {
     val errorstate by detailScreenViewModel.errorState.collectAsState()
     if (errorstate != "") {
         ShowError(errorstate)
     } else {
-        DetailMovieScreen()
+        DetailTvShowScreen()
     }
+
+
 }
 
 @Composable
-private fun DetailMovieScreen(
+private fun DetailTvShowScreen(
     detailScreenViewModel: DetailScreenViewModel = hiltViewModel()
 
 ) {
-    val detailMovie by detailScreenViewModel.detailMovie.collectAsState()
+    val detailTvShow by detailScreenViewModel.detailTvShow.collectAsState()
 
     when {
-        detailMovie.loading -> LoadingState()
-        else -> ShowListState(detailMovie.MovieDetailDataModel!!)
+        detailTvShow.loading -> LoadingState()
+        else -> ShowListState(detailTvShow.tvShowDetailDataModel!!)
     }
 }
 
@@ -99,7 +98,7 @@ private fun LoadingState(
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun ShowListState(
-    movieDetailDataModel: MovieDetailDataModel,
+    tvShowDetailDataModel: TvShowDetailDataModel,
     modifier: Modifier = Modifier
 ) {
 
@@ -115,10 +114,10 @@ private fun ShowListState(
         ) {
 
             HeaderScreen(
-                movieDetailDataModel!!.poster_path,
-                movieDetailDataModel!!.title,
-                movieDetailDataModel!!.status,
-                movieDetailDataModel!!.images
+                tvShowDetailDataModel!!.poster_path,
+                tvShowDetailDataModel!!.name,
+                tvShowDetailDataModel!!.status,
+                tvShowDetailDataModel!!.images
             )
             Row(
                 modifier = Modifier
@@ -137,7 +136,7 @@ private fun ShowListState(
                         tint = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                     Text(
-                        text = movieDetailDataModel!!.release_date.split("-")[0],
+                        text = tvShowDetailDataModel!!.first_air_date.split("-")[0],
                         color = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                 }
@@ -158,7 +157,7 @@ private fun ShowListState(
                         tint = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                     Text(
-                        text = String.format("%.1f", movieDetailDataModel!!.vote_average),
+                        text = String.format("%.1f", tvShowDetailDataModel!!.vote_average),
                         color = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                 }
@@ -179,7 +178,7 @@ private fun ShowListState(
                         tint = MaterialTheme.colorScheme.onTertiaryContainer
                     )
                     Text(
-                        text = "${movieDetailDataModel!!.runtime} minutes",
+                        text = "${tvShowDetailDataModel!!.episode_run_time.firstOrNull() ?: "-"} minutes",
                         color = MaterialTheme.colorScheme.onTertiaryContainer,
                         textAlign = TextAlign.Center
                     )
@@ -189,7 +188,7 @@ private fun ShowListState(
             Column(modifier = Modifier.height(screenHeight)) {
 
                 var selectedTabIndex by remember { mutableIntStateOf(0) }
-                val pagerState = rememberPagerState { InformationTabs.entries.size }
+                val pagerState = rememberPagerState { InformationTvTabs.entries.size }
 
                 LaunchedEffect(key1 = selectedTabIndex) {
                     pagerState.animateScrollToPage(selectedTabIndex)
@@ -202,23 +201,24 @@ private fun ShowListState(
 
 
                 TabRow(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(vertical = 15.dp, horizontal = 8.dp)
                         .clip(RoundedCornerShape(90)),
-                    contentColor =MaterialTheme.colorScheme.tertiaryContainer,
-                    containerColor =MaterialTheme.colorScheme.tertiaryContainer,
+                    contentColor = MaterialTheme.colorScheme.tertiaryContainer,
+                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
                     selectedTabIndex = selectedTabIndex,
                     indicator = { tabPositions: List<TabPosition> ->
                         Box {}
                     }
                 ) {
-                    InformationTabs.entries.forEachIndexed { index, currentTab ->
+                    InformationTvTabs.entries.forEachIndexed { index, currentTab ->
                         Tab(
                             modifier = if (selectedTabIndex == index) Modifier
                                 .clip(RoundedCornerShape(50))
                                 .background(
-                                MaterialTheme.colorScheme.secondaryContainer
-                            )
+                                    MaterialTheme.colorScheme.secondaryContainer
+                                )
                             else Modifier
                                 .clip(RoundedCornerShape(50))
                                 .background(
@@ -260,14 +260,19 @@ private fun ShowListState(
                         })
                 ) { page: Int ->
                     when (page) {
-                        0 -> InformationMovieScreen(movieDetailDataModel!!.overview,movieDetailDataModel!!.genres)
-                        1 -> CreditsScreen(movieDetailDataModel!!.credits)
+                        0 -> InformationTvScreen(tvShowDetailDataModel)
+                        1 -> CreditsScreen(tvShowDetailDataModel.credits)
+                        2 -> SeasonsScreen(tvShowDetailDataModel.seasons)
                     }
                 }
-            }}}}
+            }
+        }
+    }
+}
 
 
-enum class InformationTabs(val text: String) {
-    About( "About"),
-    Credits( "Credits")
+enum class InformationTvTabs(val text: String) {
+    About("About"),
+    Credits("Credits"),
+    Seasons("Seasons")
 }

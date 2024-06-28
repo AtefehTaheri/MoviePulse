@@ -22,7 +22,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavOptions
+import androidx.navigation.navOptions
 import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.designsystem.ShowError
 import ir.atefehtaheri.homescreen.components.NowPlayingList
@@ -45,28 +47,6 @@ val scrollstate = rememberScrollState()
     val errorState by homeScreenViewModel.errorState.collectAsState()
 
     if (errorState != ""){
-//        Column(modifier = Modifier
-//            .fillMaxSize()
-//            .background(MaterialTheme.colorScheme.primaryContainer),
-//            horizontalAlignment = Alignment.CenterHorizontally,
-//            verticalArrangement = Arrangement.Center)
-//        {
-//            Image(
-//                painter = painterResource(id = R.drawable.error),
-//                contentDescription = "",
-//                Modifier
-//                    .size(100.dp),
-//                     contentScale = ContentScale.Fit
-//            )
-//        Spacer(modifier = Modifier.height(10.dp))
-//            Text(
-//                text = errorState,
-//                style = MaterialTheme.typography.titleMedium,
-//                color = MaterialTheme.colorScheme.onPrimary,
-//                textAlign = TextAlign.Center
-//            )
-//
-//        }
         ShowError(errorState)
     }else{
 
@@ -91,6 +71,22 @@ val scrollstate = rememberScrollState()
                 style = MaterialTheme.typography.titleMedium,
                 color = MaterialTheme.colorScheme.onPrimary,
             )
+
+
+//            val x=navOptions {
+//                // Pop up to the start destination of the graph to
+//                // avoid building up a large stack of destinations
+//                // on the back stack as users select items
+//                popUpTo(navController.graph.findStartDestination().id) {
+//                    saveState = true
+//                }
+//                // Avoid multiple copies of the same destination when
+//                // reselecting the same item
+//                launchSingleTop = true
+//                // Restore state when reselecting a previously selected item
+//                restoreState = true
+//            }
+
 
             Text(
                 modifier = Modifier.clickable{ navToUpcoming(null)},

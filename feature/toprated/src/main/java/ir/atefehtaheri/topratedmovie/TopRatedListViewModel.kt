@@ -20,20 +20,16 @@ class TopRatedListViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-init {
-    getTopRatedMovies()
-    getTopRatedTvshow()
-}
 
-    fun getTopRatedMovies(): Flow<PagingData<TopRatedMovieDataModel>> {
-        return topRatedMovieRepository.getTopRatedMovie()
+    val topRatedMovies: Flow<PagingData<TopRatedMovieDataModel>> =
+         topRatedMovieRepository.getTopRatedMovie()
             .cachedIn(viewModelScope)
 
-    }
 
-    fun getTopRatedTvshow(): Flow<PagingData<TopRatedTvShowDataModel>> {
-        return topRatedTvShowRepository.getTopRatedTvShow()
+
+    val topRatedTvshow: Flow<PagingData<TopRatedTvShowDataModel>> =
+         topRatedTvShowRepository.getTopRatedTvShow()
             .cachedIn(viewModelScope)
 
-    }
+
 }

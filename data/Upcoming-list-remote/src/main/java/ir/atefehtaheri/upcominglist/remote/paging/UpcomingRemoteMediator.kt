@@ -45,10 +45,10 @@ class UpcomingRemoteMediator @Inject constructor(
                     } ?: return MediatorResult.Success(true)
 
 
-                    remoteKey.next_page ?:  return MediatorResult.Success(true)
+                    remoteKey.next_page ?: return MediatorResult.Success(true)
                 }
             }
-
+            Log.d("Paging", loadType.name)
             val networkResponse = upcomingListApi.getUpcomingList(page = page)
 
             when (networkResponse) {
@@ -58,14 +58,14 @@ class UpcomingRemoteMediator @Inject constructor(
                 is NetworkResponse.Success -> {
 
                     movieDatabase.withTransaction {
-                        if(loadType == LoadType.REFRESH) {
+                        if (loadType == LoadType.REFRESH) {
                             movieDao.clearAllUpcoming()
                         }
                         val data =
                             networkResponse.body?.results?.map { it.asUpcomingMovieEntity() }
                                 ?: emptyList()
 
-                        val nextPage = if(networkResponse.body?.results!!.isEmpty()) {
+                        val nextPage = if (networkResponse.body?.results!!.isEmpty()) {
                             null
                         } else {
                             page + 1
@@ -73,9 +73,9 @@ class UpcomingRemoteMediator @Inject constructor(
 
                         remoteKeyDao.insertKey(
                             RemoteKey(
-                            id = "upcoming_movie",
-                            next_page = nextPage,
-                        )
+                                id = "upcoming_movie",
+                                next_page = nextPage,
+                            )
                         )
                         movieDao.insertUpcomingAll(data)
                     }
@@ -83,12 +83,14 @@ class UpcomingRemoteMediator @Inject constructor(
                         endOfPaginationReached = networkResponse.body?.results!!.isEmpty()
                     )
 
-                }}
+                }
+            }
 
         } catch (e: Exception) {
             return MediatorResult.Error(e)
         }
-    }}
+    }
+}
 
 
 

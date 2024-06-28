@@ -74,7 +74,7 @@ dependencies {
 
     implementation(project(":data:toprated-movie-repository"))
     implementation(project(":data:toprated-tvshow-repository"))
-
+    implementation(project(":core:designsystem"))
     implementation(project(":core:common"))
 
     implementation(libs.hilt.navigation.compose)

@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import ir.atefehtaheri.common.models.Type
 import ir.atefehtaheri.detailscreen.component.DetailMovie
+import ir.atefehtaheri.detailscreen.component.DetailTvShow
 
 
 @Composable
@@ -21,7 +22,7 @@ internal fun DetailScreen(
         }
         Type.TVSHOW -> {
             detailScreenViewModel.getDetailTvShow(id)
-//            DetailTvShowScreen()
+            DetailTvShow()
         }
     }
 }

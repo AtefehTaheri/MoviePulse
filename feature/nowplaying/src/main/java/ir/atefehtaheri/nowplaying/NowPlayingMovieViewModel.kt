@@ -20,20 +20,17 @@ class NowPlayingMovieViewModel @Inject constructor(
 ) : ViewModel() {
 
 
-init {
-    getNowPlayingMovies()
-    getTvShowAiring()
-}
 
-    fun getNowPlayingMovies(): Flow<PagingData<NowPlayingDataModel>> {
-        return nowPlayingRepository.getNowPlayingMovies()
+
+    val nowPlayingMovies: Flow<PagingData<NowPlayingDataModel>> =
+         nowPlayingRepository.getNowPlayingMovies()
             .cachedIn(viewModelScope)
 
-    }
 
-    fun getTvShowAiring(): Flow<PagingData<TvAiringDataModel>> {
-        return tvAiringRepository.getTvAiring()
+
+    val tvShowAiring: Flow<PagingData<TvAiringDataModel>> =
+         tvAiringRepository.getTvAiring()
             .cachedIn(viewModelScope)
 
-    }
+
 }

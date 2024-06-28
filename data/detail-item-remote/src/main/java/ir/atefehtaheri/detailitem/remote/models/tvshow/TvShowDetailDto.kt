@@ -1,21 +1,25 @@
 package ir.atefehtaheri.detailitem.remote.models.tvshow
 
+import ir.atefehtaheri.detailitem.remote.models.movie.ProductionCountry
+
 data class TvShowDetailDto(
     val adult: Boolean,
-    val backdrop_path: String,
+    val backdrop_path: String?,
     val created_by: List<CreatedBy>,
+    val credits: Credits,
     val episode_run_time: List<Int>,
     val first_air_date: String,
     val genres: List<Genre>,
     val homepage: String,
     val id: Int,
+    val images: Images,
     val in_production: Boolean,
     val languages: List<String>,
     val last_air_date: String,
     val last_episode_to_air: LastEpisodeToAir,
     val name: String,
     val networks: List<Network>,
-    val next_episode_to_air: NextEpisodeToAir,
+    val next_episode_to_air: NextEpisodeToAir?,
     val number_of_episodes: Int,
     val number_of_seasons: Int,
     val origin_country: List<String>,
@@ -23,7 +27,7 @@ data class TvShowDetailDto(
     val original_name: String,
     val overview: String,
     val popularity: Double,
-    val poster_path: String,
+    val poster_path: String?,
     val production_companies: List<ProductionCompany>,
     val production_countries: List<ProductionCountry>,
     val seasons: List<Season>,

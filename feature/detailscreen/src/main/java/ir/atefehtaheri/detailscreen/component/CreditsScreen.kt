@@ -21,9 +21,11 @@ import ir.atefehtaheri.detailitem.repository.models.Credits
 @Composable
 fun CreditsScreen(credits: Credits) {
 
-    LazyColumn(modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+    LazyColumn(
+        modifier = Modifier.fillMaxSize(),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center
+    ) {
 
         stickyHeader {
             ElevatedCard(

@@ -143,6 +143,7 @@ internal fun HeaderScreen(
                            text =title,
                            style = MaterialTheme.typography.titleMedium,
                            color = MaterialTheme.colorScheme.onTertiaryContainer,
+                           maxLines = 2
                        )
                        Spacer(modifier = Modifier.height(10.dp))
                        Text(

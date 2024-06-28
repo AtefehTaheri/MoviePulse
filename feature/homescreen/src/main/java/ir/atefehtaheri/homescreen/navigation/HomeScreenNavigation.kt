@@ -17,7 +17,7 @@ fun NavController.navigateToHomeScreen(navOptions: NavOptions? = null) {
 fun NavGraphBuilder.homeScreenDestination(
     navToUpcoming :  (NavOptions?) -> Unit,
     navToNowPlaying :  (NavOptions?) -> Unit,
-    navToTopRated :  (NavOptions?) -> Unit={},
+    navToTopRated :  (NavOptions?) -> Unit,
     onItemClick:(Type, String, NavOptions?) -> Unit
    ) {
 

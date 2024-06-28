@@ -25,7 +25,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun InformationScreen(overview: String?, genres: List<String>?) {
+fun InformationMovieScreen(overview: String?, genres: List<String>?) {
     var expandedState by remember { mutableStateOf(false) }
 
     Column(
