@@ -34,6 +34,15 @@ This Android application provides detailed information about movies and TV shows
 ## Features
 * View top-rated, upcoming, and now-playing movies and TV shows
 * View detailed information about movies and TV shows, including cast, crew, ratings, and synopsis
+* Efficiently load and display large datasets using Paging 3
+
+## Project Structure
+The project follows a multi-module architecture with the following modules:
+* app: The main application module containing the UI and application logic
+* core: Contains common utilities and base classes used across other modules
+* data: Handles data fetching from the TMDb API and local data storage
+* feature: Module for each features of movies and TV shows
+* navigation: Module for handling navigation across different features
 
 ## Tech Stack
 
@@ -42,6 +51,7 @@ This Android application provides detailed information about movies and TV shows
 * Jetpack Navigation Component
 * Retrofit - Network Requests
 * Hilt - Dependency Injection
+* Paging 3 - Library for loading and displaying paginated data in a Jetpack Compose LazyColumn
 * [TMDB API](https://developer.themoviedb.org/)
 
 ## Getting Started
